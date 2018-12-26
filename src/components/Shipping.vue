@@ -1,6 +1,6 @@
 <template>
     <form>
-        <form-element name="email" type="text" required="true"></form-element>
+        <form-element name="email" type="text" required></form-element>
     </form>
 </template>
 
@@ -8,6 +8,6 @@
 import FormElement from './utilities/FormElement.vue'
 
 export default {
-  components: [ FormElement ]
+  components: { FormElement }
 }
 </script>
