@@ -14,7 +14,9 @@
       <form-element name="country" required>Country:</form-element>
       <form-element name="phone_number">Phone Number:</form-element>
 
-      <button type="submit" class="btn btn-info">Next</button>
+      <button type="submit" class="btn btn-info">
+        <router-link :to="{ name: 'Order' }">Next</router-link>
+      </button>
     </form>
     <vue-footer></vue-footer>
   </div>
@@ -29,3 +31,9 @@ export default {
   components: { VueHeader, FormElement, VueFooter }
 }
 </script>
+
+<style>
+button > a {
+  color: white;
+}
+</style>
