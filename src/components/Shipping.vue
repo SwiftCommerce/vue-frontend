@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <vue-header>Shipping</vue-header>
+  <page name="Shipping">
     <form>
       <form-element name="email" required>Email Address:</form-element>
       <form-element name="firstname" required>First Name:</form-element>
@@ -16,17 +15,15 @@
 
       <button type="submit" class="btn btn-info" @click="submit()">Next</button>
     </form>
-    <vue-footer></vue-footer>
-  </div>
+  </page>
 </template>
 
 <script>
-import VueHeader from './utilities/VueHeader.vue'
-import FormElement from './utilities/FormElement.vue'
-import VueFooter from './utilities/VueFooter.vue'
+import Page from '@/components/page/Page.vue'
+import FormElement from '@/components/utilities/FormElement.vue'
 
 export default {
-  components: { VueHeader, FormElement, VueFooter },
+  components: { Page, FormElement },
   methods: {
     submit: function () {
       window.router.push({name: 'Order'})
