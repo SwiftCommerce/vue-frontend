@@ -1,6 +1,6 @@
 <template>
     <form>
-        <form-element name="email" type="text" required></form-element>
+        <form-element name="email" required></form-element>
     </form>
 </template>
 
