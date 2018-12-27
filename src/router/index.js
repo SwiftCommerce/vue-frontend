@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import HelloWorld from '@/components/HelloWorld'
 import Shipping from '@/components/Shipping'
-import Order from '@/components/Order'
+import Order from '@/components/order/Order'
 
 Vue.use(Router)
 
