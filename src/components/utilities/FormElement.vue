@@ -4,7 +4,7 @@
             <label :for="name"><slot></slot></label>
 
             <input v-if="this.required" :type="type" :name="name" :id="name" required>
-            <input v-else :type="type" :name="name" :id="name" required>
+            <input v-else :type="type" :name="name" :id="name">
         </div>
     </div>
 </template>
@@ -21,7 +21,8 @@ export default {
       default: 'text'
     },
     required: {
-      type: Boolean
+      type: Boolean,
+      default: false
     }
   }
 }
