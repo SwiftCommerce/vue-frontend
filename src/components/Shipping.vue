@@ -14,7 +14,7 @@
       <form-element name="country" required>Country:</form-element>
       <form-element name="phone_number">Phone Number:</form-element>
 
-      <button type="button" class="btn btn-info">Next</button>
+      <button type="submit" class="btn btn-info">Next</button>
     </form>
     <vue-footer></vue-footer>
   </div>
