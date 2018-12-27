@@ -16,14 +16,16 @@
 
       <button type="button" class="btn btn-info">Next</button>
     </form>
+    <vue-footer></vue-footer>
   </div>
 </template>
 
 <script>
 import VueHeader from './utilities/VueHeader.vue'
 import FormElement from './utilities/FormElement.vue'
+import VueFooter from './utilities/VueFooter.vue'
 
 export default {
-  components: { VueHeader, FormElement }
+  components: { VueHeader, FormElement, VueFooter }
 }
 </script>
