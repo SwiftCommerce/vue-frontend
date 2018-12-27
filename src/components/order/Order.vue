@@ -2,7 +2,7 @@
   <page name="Order">
     <div class="row">
         <div id="payment" class="col-6">
-          Payment
+          <payment></payment>
         </div>
         <div id="cart" class="col-6">
           Cart
@@ -13,9 +13,10 @@
 
 <script>
 import Page from '@/components/page/Page.vue'
+import Payment from '@/components/order/Payment.vue'
 
 export default {
-  components: { Page }
+  components: { Page, Payment }
 }
 </script>
 
