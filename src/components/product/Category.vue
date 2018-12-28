@@ -14,14 +14,12 @@
     </div>
 
     <div v-else-if="products" id="products">
-      <ul>
-        <li v-for="product in products" :key="product.sku">
-          <div class="media">
-            <!-- <img src="..." class="mr-3" alt="..."> -->
-            <div class="media-body">
-              <h5 class="mt-0">{{ product.name }}</h5>
-              <p>{{ product.description }}</p>
-            </div>
+      <ul class="list-unstyled">
+        <li v-for="product in products" :key="product.sku" class="media">
+          <!-- <img src="..." class="mr-3" alt="..."> -->
+          <div class="media-body">
+            <h5 class="mt-0">{{ product.name }}</h5>
+            <p>{{ product.description }}</p>
           </div>
         </li>
       </ul>
