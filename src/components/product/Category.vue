@@ -1,5 +1,6 @@
 <template>
   <page :name="pageName">
+    <category-nav></category-nav>
 
     <div v-if="error" id="error">
       <div class="alert alert-danger" role="alert">
@@ -30,6 +31,7 @@
 
 <script>
 import Page from '@/components/page/Page.vue'
+import CategoryNav from '@/components/page/CategoryNav.vue'
 
 function uppercasedName (vue) {
   var name = vue.$route.params.category
@@ -37,7 +39,7 @@ function uppercasedName (vue) {
 }
 
 export default {
-  components: { Page },
+  components: { Page, CategoryNav },
   data: function () {
     return {
       pageName: uppercasedName(this),
