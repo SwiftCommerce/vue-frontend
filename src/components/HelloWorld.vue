@@ -1,15 +1,17 @@
 <template>
   <page name="Home">
+    <category-nav></category-nav>
     <h1 id="greeting">{{ msg }}</h1>
   </page>
 </template>
 
 <script>
 import Page from '@/components/page/Page.vue'
+import CategoryNav from '@/components/page/CategoryNav.vue'
 
 export default {
   name: 'HelloWorld',
-  components: { Page },
+  components: { Page, CategoryNav },
   data () {
     return {
       msg: 'Welcome to SwiftCommerce'
