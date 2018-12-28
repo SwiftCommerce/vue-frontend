@@ -5,8 +5,8 @@
     </div>
 
     <div v-if="loading" id="loading" class="row">
-      <div class="nav column">
-        <p>Loading...</p>
+      <div class="column spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
       </div>
     </div>
 
@@ -66,6 +66,7 @@ export default {
 header {
   padding-top: 1em;
 }
+
 h1 {
   font: 2em;
   text-align: center;
