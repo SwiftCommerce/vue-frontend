@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import state from './state'
+import store from './state'
 import api from './api'
 
 Vue.config.productionTip = false
@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   api,
-  state,
+  store,
   router,
   components: { App },
   template: '<App/>'
