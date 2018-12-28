@@ -1,10 +1,15 @@
 <template>
-  <h1 id="greeting">{{ msg }}</h1>
+  <page name="Home">
+    <h1 id="greeting">{{ msg }}</h1>
+  </page>
 </template>
 
 <script>
+import Page from '@/components/page/Page.vue'
+
 export default {
   name: 'HelloWorld',
+  components: { Page },
   data () {
     return {
       msg: 'Welcome to SwiftCommerce'
