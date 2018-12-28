@@ -10,8 +10,8 @@
       </div>
     </div>
 
-    <div v-if="error" id="error" class="row">
-      <div class="nav column">
+    <div v-if="error" id="error" class="row alert alert-danger" role="alert">
+      <div class="column">
         <p>{{ error }}</p>
       </div>
     </div>
