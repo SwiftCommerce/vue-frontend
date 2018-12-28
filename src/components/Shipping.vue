@@ -26,7 +26,7 @@ export default {
   components: { Page, FormElement },
   methods: {
     submit: function () {
-      window.router.push({name: 'Order'})
+      this.$router.push({name: 'Order'})
     }
   }
 }
