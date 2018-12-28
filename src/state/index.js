@@ -4,7 +4,9 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    categories: null
+  },
   mutations: {
     categories (state, categories) {
       state.categories = categories
