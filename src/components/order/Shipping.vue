@@ -9,6 +9,6 @@ import Page from '@/components/page/Page.vue'
 import AddressForm from '@/components/order/AddressForm.vue'
 
 export default {
-  components: { Page, AddressForm },
+  components: { Page, AddressForm }
 }
 </script>
