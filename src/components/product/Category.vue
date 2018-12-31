@@ -52,6 +52,9 @@ export default {
   created: function () {
     this.getProducts()
   },
+  watch: {
+    '$route': 'getProducts'
+  },
   methods: {
     getProducts: function () {
       this.error = null
