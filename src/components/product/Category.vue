@@ -15,15 +15,12 @@
     </div>
 
     <div v-else-if="products" id="products">
-      <ul class="list-unstyled">
-        <li v-for="product in products" :key="product.sku" class="media">
-          <!-- <img src="..." class="mr-3" alt="..."> -->
-          <div class="media-body">
-            <h5 class="mt-0">{{ product.name }}</h5>
-            <p>{{ product.description }}</p>
-          </div>
-        </li>
-      </ul>
+      <div class="list-group list-group-flush">
+        <div v-for="product in products" :key="product.sku" class="product list-group-item list-group-item-action">
+          <h5>{{ product.name }}</h5>
+          <p>{{ product.description }}</p>
+        </div>
+      </div>
     </div>
 
     <div v-if="loading">
