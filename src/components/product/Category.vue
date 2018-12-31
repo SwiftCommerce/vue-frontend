@@ -16,10 +16,15 @@
 
     <div v-else-if="products" id="products">
       <div class="list-group list-group-flush">
-        <div v-for="product in products" :key="product.sku" class="product list-group-item list-group-item-action">
+        <router-link 
+          v-for="product in products" 
+          :key="product.sku" 
+          :to="{ name: 'Product', params: { product: product.sku}}" 
+          class="product list-group-item list-group-item-action"
+        >
           <h5>{{ product.name }}</h5>
           <p>{{ product.description }}</p>
-        </div>
+        </router-link>
       </div>
     </div>
 
