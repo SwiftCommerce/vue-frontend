@@ -108,7 +108,6 @@ export default {
       })
     },
     setProduct: function (product) {
-      alert(product.sku)
       this.$store.commit('product', product)
     },
     onScroll: function () {
