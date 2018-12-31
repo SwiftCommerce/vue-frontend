@@ -67,6 +67,20 @@ export default {
     getProducts: function () {
       this.error = null
       this.loading = true
+      this.page = 1
+
+      this.$api.products.get(`?categories[]=${this.$route.params.category}&page=${this.page}&pageSize=3`).then((response) => {
+        this.products = response.data.products
+        this.page += 1
+
+        this.loading = false
+      }).catch((error) => {
+        this.error = error
+        this.loading = false
+      })
+    },
+    updateProducts: function () {
+      this.loading = true
 
       this.$api.products.get(`?categories[]=${this.$route.params.category}&page=${this.page}&pageSize=3`).then((response) => {
         response.data.products.forEach(product => this.products.push(product))
