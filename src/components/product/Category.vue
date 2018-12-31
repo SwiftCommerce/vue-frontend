@@ -69,7 +69,7 @@ export default {
       this.loading = true
       this.page = 1
 
-      this.$api.products.get(`?categories[]=${this.$route.params.category}&page=${this.page}&pageSize=3`).then((response) => {
+      this.$api.products.get(`?categories[]=${this.$route.params.category}&page=${this.page}&pageSize=25`).then((response) => {
         this.products = response.data.products
         this.page += 1
 
