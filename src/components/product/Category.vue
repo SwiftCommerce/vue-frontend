@@ -61,9 +61,12 @@ export default {
     this.getProducts()
   },
   watch: {
-    '$route': 'getProducts'
+    '$route': ['setTitle', 'getProducts']
   },
   methods: {
+    setTitle: function () {
+      this.pageName = uppercasedName(this)
+    },
     getProducts: function () {
       this.error = null
       this.loading = true
