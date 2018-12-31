@@ -41,16 +41,11 @@
 import Page from '@/components/page/Page.vue'
 import CategoryNav from '@/components/page/CategoryNav.vue'
 
-function uppercasedName (vue) {
-  var name = vue.$route.params.category
-  return name.charAt(0).toUpperCase() + name.slice(1)
-}
-
 export default {
   components: { Page, CategoryNav },
   data: function () {
     return {
-      pageName: uppercasedName(this),
+      pageName: null,
       products: [],
       error: null,
       loading: true,
@@ -58,6 +53,7 @@ export default {
     }
   },
   created: function () {
+    this.setTitle()
     this.getProducts()
   },
   watch: {
@@ -65,7 +61,8 @@ export default {
   },
   methods: {
     setTitle: function () {
-      this.pageName = uppercasedName(this)
+      var name = this.$route.params.category
+      this.pageName = name.charAt(0).toUpperCase() + name.slice(1)
     },
     getProducts: function () {
       this.error = null
