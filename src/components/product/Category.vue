@@ -61,13 +61,13 @@ export default {
       this.loading = true
 
       this.$api.products.get(`?categories[]=${this.$route.params.category}&page=${this.page}&pageSize=3`).then((response) => {
-        Array.prototype.push.apply(this.products, response.data.products)
+        response.data.products.forEach(product => this.products.push(product))
         this.page += 1
 
-        // We force update because Vue does not make the prototype functions reactive.
-        this.$forceUpdate()
+        this.loading = false
       }).catch((error) => {
         this.error = error
+        this.loading = false
       })
     }
   }
