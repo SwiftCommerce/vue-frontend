@@ -15,7 +15,7 @@
     <div v-if="categories" id="categories" class="row">
       <ul class="nav column">
         <li v-for="category in categories" :key="category.id" class="nav-item">
-          <a class="nav-link" :href="'/categories/' + category.name">{{ category.name }}</a>
+          <router-link class="nav-link" :to="{ name: 'Category', params: { category: category.name }}">{{ category.name }}</router-link>
         </li>
       </ul>
     </div>
