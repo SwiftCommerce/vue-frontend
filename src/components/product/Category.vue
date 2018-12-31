@@ -57,6 +57,11 @@ export default {
   created: function () {
     this.setTitle()
     this.getProducts()
+
+    window.addEventListener('scroll', this.onScroll)
+  },
+  destroyed: function () {
+    window.removeEventListener('scroll', this.onScroll)
   },
   watch: {
     '$route': ['setTitle', 'getProducts']
@@ -98,6 +103,13 @@ export default {
         this.error = error
         this.loading = false
       })
+    },
+    onScroll: function () {
+      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
+
+      if (bottomOfWindow) {
+        this.updateProducts()
+      }
     }
   }
 }
