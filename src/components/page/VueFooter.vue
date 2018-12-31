@@ -2,21 +2,11 @@
   <footer class="border-top">
     <div class="row">
       <ul class="col">
-        <li>&copy; Skelpo {{ year }}</li>
+        <li>&copy; Skelpo {{ new Date().getFullYear() }}</li>
       </ul>
     </div>
   </footer>
 </template>
-
-<script>
-export default {
-  data: function () {
-    return {
-      year: new Date().getFullYear()
-    }
-  }
-}
-</script>
 
 <style>
 footer {
