@@ -46,9 +46,11 @@ export default {
   data: function () {
     return {
       pageName: null,
-      products: [],
       error: null,
       loading: true,
+
+      products: [],
+      allProductsFetched: false,
       page: 1
     }
   },
@@ -80,11 +82,16 @@ export default {
       })
     },
     updateProducts: function () {
-      this.loading = true
+      if (this.allProductsFetched || this.loading) { return }
 
-      this.$api.products.get(`?categories[]=${this.$route.params.category}&page=${this.page}&pageSize=3`).then((response) => {
-        response.data.products.forEach(product => this.products.push(product))
-        this.page += 1
+      this.loading = true
+      this.$api.products.get(`?categories[]=${this.$route.params.category}&page=${this.page}&pageSize=25`).then((response) => {
+        if (response.data.products.length === 0) {
+          this.allProductsFetched = true
+        } else {
+          response.data.products.forEach((product) => this.products.push(product))
+          this.page += 1
+        }
 
         this.loading = false
       }).catch((error) => {
