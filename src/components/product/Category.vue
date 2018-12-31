@@ -16,10 +16,11 @@
 
     <div v-else-if="products" id="products">
       <div class="list-group list-group-flush">
-        <router-link 
-          v-for="product in products" 
-          :key="product.sku" 
-          :to="{ name: 'Product', params: { product: product.sku}}" 
+        <router-link
+          v-for="product in products"
+          :key="product.sku"
+          :to="{ name: 'Product', params: { product: product.sku}}"
+          @click.native="setProduct(product)"
           class="product list-group-item list-group-item-action"
         >
           <h5>{{ product.name }}</h5>
@@ -105,6 +106,10 @@ export default {
         this.error = error
         this.loading = false
       })
+    },
+    setProduct: function (product) {
+      alert(product.sku)
+      this.$store.commit('product', product)
     },
     onScroll: function () {
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
