@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <div v-else-if="products.length === 0" id="no-products">
+    <div v-else-if="products.length === 0 && !loading" id="no-products">
       <div class="alert alert-warning" role="alert">
         <p>No products found in category '{{ $route.params.category }}'</p>
       </div>
