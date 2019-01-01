@@ -49,6 +49,7 @@ export default {
       if (this.$store.state.categories) {
         this.loading = false
         this.categories = this.$store.state.categories
+        return
       }
 
       this.$api.products.get('/categories').then((response) => {
