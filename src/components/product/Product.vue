@@ -32,7 +32,7 @@
             <input v-model="productCount" type="number" class="form-control" placeholder="Qty" aria-label="Quantity" aria-describedby="basic-addon1">
           </div>
 
-          <button v-if="price" type="button" class="btn btn-primary" @click="addToCart()">Add to Cart</button>
+          <button v-if="price && productCount > 0" type="button" class="btn btn-primary" @click="addToCart()">Add to Cart</button>
           <button v-else type="button" class="btn btn-primary" disabled>Add to Cart</button>
 
         </div>
@@ -100,11 +100,6 @@ export default {
       return symbol + roundedString
     },
     addToCart: function () {
-      if (this.productCount < 1) {
-        this.error = 'You must have a product count of 1 or more to add it to the cart'
-        return
-      }
-
       let cartProduct = {
         count: parseInt(this.productCount),
         product: this.product
