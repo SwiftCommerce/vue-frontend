@@ -19,7 +19,7 @@
       </div>
       <div id="product-modifications" class="col-6">
         <div id="product-info" class="row">
-          <h5 id="price" class="col-6">{{ price }}</h5>
+          <h5 id="price" class="col-6">{{ price || 'Not for Sale' }}</h5>
           <p v-if="manufacturer" class="col-6 text-right">By {{ manufacturer }}</p>
           <hr class="col-12"/>
           <p>{{ product.description }}</p>
@@ -31,7 +31,10 @@
             </div>
             <input v-model="productCount" type="number" class="form-control" placeholder="Qty" aria-label="Quantity" aria-describedby="basic-addon1">
           </div>
-          <button type="button" class="btn btn-primary" @click="addToCart()">Add to Cart</button>
+
+          <button v-if="price" type="button" class="btn btn-primary" @click="addToCart()">Add to Cart</button>
+          <button v-else type="button" class="btn btn-primary" disabled>Add to Cart</button>
+
         </div>
       </div>
     </div>
