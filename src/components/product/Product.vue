@@ -104,8 +104,7 @@ export default {
 
       let cartProduct = {
         count: parseInt(this.productCount),
-        sku: this.product.sku,
-        id: this.product.id
+        product: this.product
       }
 
       this.$store.commit('addToCart', cartProduct)

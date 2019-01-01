@@ -19,10 +19,15 @@ export default new Vuex.Store({
       state.product = product
     },
     addToCart (state, product) {
-      state.cart.push(product)
+      var index = state.cart.findIndex((item) => item.product.sku === product.sku)
+      if (index >= 0) {
+        state.cart[index].count += product.count
+      } else {
+        state.cart.push(product)
+      }
     },
     removeFromCart (state, sku) {
-      state.cart = state.cart.filter((product) => product.sku !== sku)
+      state.cart = state.cart.filter((item) => item.product.sku !== sku)
     }
   }
 })
