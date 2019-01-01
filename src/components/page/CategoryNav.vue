@@ -18,6 +18,10 @@
           <router-link class="nav-link text-capitalize" :to="{ name: 'Category', params: { category: category.name }}">{{ category.name }}</router-link>
         </li>
       </ul>
+      <div id="cart" class="text-right">
+        <font-awesome icon="shopping-cart" id="cart-icon"/>
+        <span id="cart-badge" class="badge badge-primary badge-pill">{{ cartProductCount }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +32,9 @@ export default {
     return {
       loading: true,
       categories: null,
-      error: null
+      error: null,
+
+      cartProductCount: this.$store.state.cart.length
     }
   },
   created () {
@@ -59,8 +65,29 @@ export default {
 </script>
 
 <style>
+ul {
+  float: left;
+}
+
 #category-nav {
   background-color: rgb(235, 233, 233);
   margin-bottom: 1em;
+}
+
+#cart {
+  float: right;
+  margin: 1em 0 0;
+}
+
+#cart-icon {
+  font-size: 2em;
+  z-index: 0;
+}
+
+#cart-badge {
+  position: relative;
+  z-index: 1;
+  right: 1.5em;
+  bottom: 1.5em;
 }
 </style>
