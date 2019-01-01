@@ -19,8 +19,10 @@
         </li>
       </ul>
       <div id="cart" class="text-right">
-        <font-awesome icon="shopping-cart" id="cart-icon"/>
-        <span id="cart-badge" class="badge badge-primary badge-pill">{{ cartProductCount }}</span>
+        <router-link :to="{ name: 'Cart' }">
+          <font-awesome icon="shopping-cart" id="cart-icon"/>
+          <span id="cart-badge" class="badge badge-primary badge-pill">{{ cartProductCount }}</span>
+        </router-link>
       </div>
     </div>
   </div>
@@ -87,6 +89,7 @@ ul {
 #cart-icon {
   font-size: 2em;
   z-index: 0;
+  color: rgb(34, 34, 34);
 }
 
 #cart-badge {
