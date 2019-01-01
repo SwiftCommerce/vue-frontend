@@ -41,7 +41,8 @@ export default {
     this.getData()
   },
   watch: {
-    '$route': 'getData'
+    '$route': 'getData',
+    '$store.state.cart': 'updateCartBadge'
   },
   methods: {
     getData: function () {
@@ -59,6 +60,9 @@ export default {
         this.loading = false
         this.error = error
       })
+    },
+    updateCartBadge: function () {
+      this.cartProductCount = this.$store.state.cart.length
     }
   }
 }
