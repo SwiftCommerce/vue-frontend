@@ -1,6 +1,6 @@
 <template>
-  <div id="category-nav">
-    <div v-if="loading" id="loading" class="row">
+  <div id="category-nav" class="rounded row">
+    <div v-if="loading" id="loading" class="col-12">
       <div class="column spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
@@ -12,10 +12,10 @@
       </div>
     </div>
 
-    <div v-if="categories" id="categories" class="row">
-      <ul class="nav column">
+    <div v-if="categories" id="categories" class="col-12">
+      <ul class="nav">
         <li v-for="category in categories" :key="category.id" class="nav-item">
-          <router-link class="nav-link" :to="{ name: 'Category', params: { category: category.name }}">{{ category.name }}</router-link>
+          <router-link class="nav-link text-capitalize" :to="{ name: 'Category', params: { category: category.name }}">{{ category.name }}</router-link>
         </li>
       </ul>
     </div>
@@ -57,3 +57,10 @@ export default {
   }
 }
 </script>
+
+<style>
+#category-nav {
+  background-color: rgb(235, 233, 233);
+  margin-bottom: 1em;
+}
+</style>
