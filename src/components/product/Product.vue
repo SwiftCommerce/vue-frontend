@@ -13,7 +13,7 @@
     <div v-if="error && !loading" class="alert alert-danger" role="alert">
       <p>{{ error }}</p>
     </div>
-    <div v-else-if="product && !loading" class="row">
+    <div v-if="product && !loading" class="row">
       <div id="image" class="col-6">
         <p class="text-center">Product Image Here</p>
       </div>
@@ -29,9 +29,9 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1">Quantity</span>
             </div>
-            <input type="number" class="form-control" placeholder="Qty" aria-label="Quantity" aria-describedby="basic-addon1">
+            <input v-model="productCount" type="number" class="form-control" placeholder="Qty" aria-label="Quantity" aria-describedby="basic-addon1">
           </div>
-          <button type="button" class="btn btn-primary">Add to Cart</button>
+          <button type="button" class="btn btn-primary" @click="addToCart()">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -50,6 +50,7 @@ export default {
       product: this.$store.state.product,
       error: null,
       loading: true,
+      productCount: 0,
 
       price: null,
       manufacturer: null
@@ -94,6 +95,20 @@ export default {
 
       let roundedString = string.slice(0, string.length - 2) + '.' + string.slice(string.length - 2)
       return symbol + roundedString
+    },
+    addToCart: function () {
+      if (this.productCount < 1) {
+        this.error = 'You must have a product count of 1 or more to add it to the cart'
+        return
+      }
+
+      let cartProduct = {
+        count: parseInt(this.productCount),
+        sku: this.product.sku,
+        id: this.product.id
+      }
+
+      this.$store.commit('addToCart', cartProduct)
     }
   }
 }
