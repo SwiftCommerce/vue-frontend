@@ -15,11 +15,14 @@
 
     <div class="list-group list-group-flush">
       <div v-for="item in $store.state.cart" :key="item.product.sku" class="list-group-item row">
-        <div class="col-6 float-left">
+        <div class="col-4">
           <h5>{{ item.product.name }}</h5>
         </div>
-        <div class="col-6 float-right">
+        <div class="col-4">
           <input v-model="item.count" type="number" class="form-control" aria-label="Quantity" aria-describedby="basic-addon1">
+        </div>
+        <div class="col-4">
+          <font-awesome class="trash" icon="trash-alt" @click="deleteItem(item.product.sku)"/>
         </div>
       </div>
     </div>
@@ -31,12 +34,21 @@ import Page from '@/components/page/Page'
 import CategoryNav from '@/components/page/CategoryNav'
 
 export default {
-  components: { Page, CategoryNav }
+  components: { Page, CategoryNav },
+  methods: {
+    deleteItem: function (sku) {
+      this.$store.commit('removeFromCart', sku)
+    }
+  }
 }
 </script>
 
 <style>
 #checkout {
   margin-bottom: 1em;
+}
+
+.trash {
+  font-size: 1em;
 }
 </style>
