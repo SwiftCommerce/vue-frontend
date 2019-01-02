@@ -23,6 +23,7 @@
           @click.native="setProduct(product)"
           class="product list-group-item list-group-item-action"
         >
+          <img :src="imageURL(product)" class="product-image">
           <h5>{{ product.name }}</h5>
           <p>{{ product.description }}</p>
         </router-link>
@@ -54,7 +55,9 @@ export default {
 
       products: [],
       allProductsFetched: false,
-      page: 1
+      page: 1,
+
+      defaultImage: require('@/assets/fa-image.png') 
     }
   },
   created: function () {
@@ -74,6 +77,10 @@ export default {
       var name = this.$route.params.category
       this.pageName = name.charAt(0).toUpperCase() + name.slice(1)
     },
+    imageURL: function (product) {
+      return product.attributes.filter((attr) => attr.name === 'image')[0] || this.defaultImage
+    },
+
     getProducts: function () {
       this.error = null
       this.loading = true
@@ -110,6 +117,7 @@ export default {
     setProduct: function (product) {
       this.$store.commit('product', product)
     },
+    
     onScroll: function () {
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
 
@@ -120,3 +128,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.product-image {
+  width: 10em;
+  height: 10em;
+}
+</style>
