@@ -15,7 +15,7 @@
     </div>
     <div v-if="product && !loading" class="row">
       <div id="image" class="col-6">
-        <p class="text-center">Product Image Here</p>
+        <img :src="imgaeURL()" />
       </div>
       <div id="product-modifications" class="col-6">
         <div id="product-info" class="row">
@@ -83,6 +83,9 @@ export default {
       this.price = this.getPrice()
 
       this.manufacturer = this.product.attributes.filter((attr) => attr.name === 'manufacturer')[0].value
+    },
+    imgaeURL: function () {
+      return this.product.attributes.filter((attr) => attr.name === 'image')[0] || require('@/assets/fa-image.png')
     },
     getPrice: function () {
       if (!this.product) { return }
