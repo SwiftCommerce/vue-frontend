@@ -28,6 +28,10 @@ export default new Vuex.Store({
     },
     removeFromCart (state, sku) {
       state.cart = state.cart.filter((item) => item.product.sku !== sku)
+    },
+    cartItemCount (state, item) {
+      var index = state.cart.findIndex((i) => i.product.sku === item.product.sku)
+      state.cart[index].count = item.count
     }
   }
 })

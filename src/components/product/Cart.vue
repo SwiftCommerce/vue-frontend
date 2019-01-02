@@ -19,16 +19,23 @@
 
     <div class="list-group list-group-flush">
       <div v-for="item in $store.state.cart" :key="item.product.sku" class="list-group-item row">
-        <div class="col-4">
+        <div class="col-3 product-image-container">
+            <img :src="imageURL(item.product)" class="product-image">
+          </div>
+        <div class="col-6 product-description">
           <h5>{{ item.product.name }}</h5>
         </div>
-        <div class="col-4">
-          <input v-model="item.count" type="number" class="form-control" aria-label="Quantity" aria-describedby="basic-addon1">
-        </div>
-        <div class="col-4">
-          <div class="delete-item">
-            <font-awesome class="trash" data-toggle="modal" data-target="#bootstrapModel" @click="setDelete(item)" icon="trash-alt"/>
-          </div>
+        <div class="col-3 product-actions">
+          <ul>
+            <li>
+              <input v-model="item.count" @change="updateProductCount(item, item.count)" type="number" size='1' class="form-control quantity" aria-label="Quantity" aria-describedby="basic-addon1">
+            </li>
+            <li>
+              <div class="delete-item">
+                <font-awesome class="trash" data-toggle="modal" data-target="#bootstrapModel" @click="setDelete(item)" icon="trash-alt"/>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -48,6 +55,13 @@ export default {
     }
   },
   methods: {
+    imageURL: function (product) {
+      return product.attributes.filter((attr) => attr.name === 'image')[0] || require('@/assets/fa-image.png')
+    },
+    updateProductCount: function (item, count) {
+      item.count = parseInt(count)
+      this.$store.commit('cartItemCount', item)
+    },
     setDelete: function (item) {
       this.deleteProduct = item.product
     },
@@ -61,6 +75,35 @@ export default {
 <style>
 #checkout {
   margin-bottom: 1em;
+}
+
+.product-image-container {
+  float: left;
+}
+
+.product-description {
+  float: left;
+  padding-top: 1em;
+}
+
+.product-actions {
+  float: right;
+  padding-top: 1em;
+}
+
+.product-actions > ul > li {
+  padding: 0.2em;
+}
+
+.product-image {
+  width: 10em;
+  height: 10em;
+}
+
+.quantity {
+  width: 2.5em;
+  padding: 0;
+  text-align: center;
 }
 
 .trash {
