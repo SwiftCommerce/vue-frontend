@@ -82,7 +82,10 @@ export default {
     populate: function () {
       this.price = this.getPrice()
 
-      this.manufacturer = this.product.attributes.filter((attr) => attr.name === 'manufacturer')[0].value
+      let manufacturer = this.product.attributes.filter((attr) => attr.name === 'manufacturer')[0]
+      if (manufacturer) {
+        this.manufacturer = manufacturer.value
+      }
     },
     imgaeURL: function () {
       return this.product.attributes.filter((attr) => attr.name === 'image')[0] || require('@/assets/fa-image.png')
