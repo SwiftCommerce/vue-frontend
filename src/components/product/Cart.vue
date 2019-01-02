@@ -3,7 +3,7 @@
     <category-nav></category-nav>
 
     <bootstrap-model title="Remove Item" accept-title="Confirm" @accepted="deleteItem()">
-      <p>Are you sure you want to remove `item` from your cart?</p>
+      <p>Are you sure you want to remove {{ deleteProduct.name }} from your cart?</p>
     </bootstrap-model>
 
     <div v-if="$store.state.cart.length > 0" id="checkout" class="row">
@@ -44,15 +44,15 @@ export default {
   components: { Page, CategoryNav, BootstrapModel },
   data: function () {
     return {
-      deleteSKU: null
+      deleteProduct: null
     }
   },
   methods: {
     setDelete: function (item) {
-      this.deleteSKU = item.product.sku
+      this.deleteProduct = item.product
     },
     deleteItem: function () {
-      this.$store.commit('removeFromCart', this.deleteSKU)
+      this.$store.commit('removeFromCart', this.deleteProduct.sku)
     }
   }
 }
