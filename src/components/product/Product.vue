@@ -53,7 +53,7 @@ export default {
       product: this.$store.state.product,
       error: null,
       loading: true,
-      productCount: 0,
+      productCount: 1,
 
       price: null,
       manufacturer: null
