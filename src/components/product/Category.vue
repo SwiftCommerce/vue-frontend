@@ -23,9 +23,13 @@
           @click.native="setProduct(product)"
           class="product list-group-item list-group-item-action"
         >
-          <img :src="imageURL(product)" class="product-image">
-          <h5>{{ product.name }}</h5>
-          <p>{{ product.description }}</p>
+          <div class="col-3 product-image-container">
+            <img :src="imageURL(product)" class="product-image">
+          </div>
+          <div class="col-9 product-description">
+            <h5>{{ product.name }}</h5>
+            <p>{{ product.description }}</p>
+          </div>
         </router-link>
       </div>
     </div>
@@ -130,6 +134,15 @@ export default {
 </script>
 
 <style>
+.product-image-container {
+  float: left;
+}
+
+.product-description {
+  float: right;
+  padding: 1em 0 0;
+}
+
 .product-image {
   width: 10em;
   height: 10em;
