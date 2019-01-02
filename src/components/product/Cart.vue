@@ -44,7 +44,7 @@ export default {
   components: { Page, CategoryNav, BootstrapModel },
   data: function () {
     return {
-      deleteProduct: null
+      deleteProduct: { name: null }
     }
   },
   methods: {
