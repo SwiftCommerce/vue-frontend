@@ -86,6 +86,10 @@ ul {
   margin: 1em 0 0;
 }
 
+#cart > a:hover {
+  text-decoration: none;
+}
+
 #cart-icon {
   font-size: 2em;
   z-index: 0;
