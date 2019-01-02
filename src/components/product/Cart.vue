@@ -2,6 +2,10 @@
   <page name="Cart">
     <category-nav></category-nav>
 
+    <bootstrap-model title="Remove Item" accept-title="Confirm" @accepted="deleteItem()">
+      <p>Are you sure you want to remove `item` from your cart?</p>
+    </bootstrap-model>
+
     <div v-if="$store.state.cart.length > 0" id="checkout" class="row">
       <div class="col-12">
         <button type="button" class="btn btn-primary">Checkout</button>
@@ -22,7 +26,9 @@
           <input v-model="item.count" type="number" class="form-control" aria-label="Quantity" aria-describedby="basic-addon1">
         </div>
         <div class="col-4">
-          <font-awesome class="trash" icon="trash-alt" @click="deleteItem(item.product.sku)"/>
+          <div class="delete-item">
+            <font-awesome class="trash" data-toggle="modal" data-target="#bootstrapModel" @click="setDelete(item)" icon="trash-alt"/>
+          </div>
         </div>
       </div>
     </div>
@@ -32,12 +38,21 @@
 <script>
 import Page from '@/components/page/Page'
 import CategoryNav from '@/components/page/CategoryNav'
+import BootstrapModel from '@/components/utilities/BootstrapModel'
 
 export default {
-  components: { Page, CategoryNav },
+  components: { Page, CategoryNav, BootstrapModel },
+  data: function () {
+    return {
+      deleteSKU: null
+    }
+  },
   methods: {
-    deleteItem: function (sku) {
-      this.$store.commit('removeFromCart', sku)
+    setDelete: function (item) {
+      this.deleteSKU = item.product.sku
+    },
+    deleteItem: function () {
+      this.$store.commit('removeFromCart', this.deleteSKU)
     }
   }
 }
@@ -50,5 +65,9 @@ export default {
 
 .trash {
   font-size: 1em;
+}
+
+.trash:hover {
+  color: rgb(196, 0, 0);
 }
 </style>
