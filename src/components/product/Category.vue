@@ -57,7 +57,7 @@ export default {
       allProductsFetched: false,
       page: 1,
 
-      defaultImage: require('@/assets/fa-image.png') 
+      defaultImage: require('@/assets/fa-image.png')
     }
   },
   created: function () {
@@ -117,7 +117,7 @@ export default {
     setProduct: function (product) {
       this.$store.commit('product', product)
     },
-    
+
     onScroll: function () {
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
 
