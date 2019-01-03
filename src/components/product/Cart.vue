@@ -8,7 +8,9 @@
 
     <div v-if="$store.state.cart.length > 0" id="checkout" class="row">
       <div class="col-12">
-        <button type="button" class="btn btn-primary">Checkout</button>
+        <router-link :to="{ name: 'Shipping' }">
+          <button type="button" class="btn btn-primary">Checkout</button>
+        </router-link>
       </div>
     </div>
     <div v-else class="row">
@@ -76,6 +78,7 @@ export default {
 <style>
 #checkout {
   margin-bottom: 1em;
+  color: white;
 }
 
 .product-image-container {
