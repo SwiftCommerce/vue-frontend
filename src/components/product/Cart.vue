@@ -51,12 +51,13 @@ export default {
   components: { Page, CategoryNav, BootstrapModel },
   data: function () {
     return {
-      deleteProduct: { name: null }
+      deleteProduct: { name: null },
+      defaultImage: require('@/assets/fa-image.png')
     }
   },
   methods: {
     imageURL: function (product) {
-      return product.attributes.filter((attr) => attr.name === 'image')[0] || require('@/assets/fa-image.png')
+      return product.attributes.filter((attr) => attr.name === 'image')[0] || this.defaultImage
     },
     updateProductCount: function (item, count) {
       item.count = parseInt(count)
