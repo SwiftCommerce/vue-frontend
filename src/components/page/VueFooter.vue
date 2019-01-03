@@ -1,8 +1,8 @@
 <template>
   <footer class="border-top">
     <div class="row">
-      <ul class="col">
-        <li>&copy; Skelpo {{ new Date().getFullYear() }}</li>
+      <ul id="footer" class="col">
+        <li class="footer-item">&copy; Skelpo {{ new Date().getFullYear() }}</li>
       </ul>
     </div>
   </footer>
@@ -14,12 +14,12 @@ footer {
   padding-bottom: 1em;
 }
 
-ul {
+#footer {
   text-align: center;
   margin: 1em 0;
 }
 
-ul > li {
+.footer-item {
   display: inline-block;
   appearance: none;
 }
