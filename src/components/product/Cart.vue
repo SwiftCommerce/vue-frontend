@@ -28,7 +28,7 @@
           <h5>{{ item.product.name }}</h5>
         </div>
         <div class="col-3 product-actions">
-          <ul>
+          <ul class="actions">
             <li>
               <input v-model="item.count" @change="updateProductCount(item, item.count)" type="number" size='1' class="form-control quantity" aria-label="Quantity" aria-describedby="basic-addon1">
             </li>
@@ -102,6 +102,14 @@ export default {
 .product-image {
   width: 10em;
   height: 10em;
+}
+
+.actions {
+  list-style: none;
+}
+
+.actions > li {
+  display: inline-block;
 }
 
 .quantity {
