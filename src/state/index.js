@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   plugins: [PersistantState()],
   state: {
+    authToken: null,
     categories: null,
     product: {},
     cart: [],
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    authToken (state, token) {
+      state.authToken = token
+    },
     categories (state, categories) {
       state.categories = categories
     },
