@@ -1,8 +1,22 @@
 <template>
   <page name="Order">
     <div class="row">
-        <div id="payment" class="col-6">
-          <payment></payment>
+        <div id="order-info" class="col-6">
+          <div id="payment">
+            <payment></payment>
+          </div>
+          <div id="address-form">
+            <hr />
+
+            <input v-model="useShippingAddress" type="checkbox" name="hide-address-form"/>
+            <label for="hide-address-form">Use shipping address as billing address</label>
+
+            <address-form v-if="!useShippingAddress"></address-form>
+          </div>
+          <div id="place-order">
+            <hr />
+            <button type="submit" class="btn btn-primary">Place Order</button>
+          </div>
         </div>
         <div id="cart" class="col-6">
           <ul class="list-group">
@@ -24,11 +38,13 @@
 <script>
 import Page from '@/components/page/Page.vue'
 import Payment from '@/components/order/Payment.vue'
+import AddressForm from '@/components/order/AddressForm.vue'
 
 export default {
-  components: { Page, Payment },
+  components: { Page, Payment, AddressForm },
   data: function () {
     return {
+      useShippingAddress: true,
       defaultImage: require('@/assets/fa-image.png')
     }
   },
