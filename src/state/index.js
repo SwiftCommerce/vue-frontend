@@ -9,7 +9,11 @@ export default new Vuex.Store({
   state: {
     categories: null,
     product: {},
-    cart: []
+    cart: [],
+    address: {
+      billing: null,
+      shipping: null
+    }
   },
   mutations: {
     categories (state, categories) {
@@ -18,6 +22,7 @@ export default new Vuex.Store({
     product (state, product) {
       state.product = product
     },
+
     addToCart (state, item) {
       var index = state.cart.findIndex((i) => i.product.sku === item.product.sku)
       if (index >= 0) {
@@ -32,6 +37,13 @@ export default new Vuex.Store({
     cartItemCount (state, item) {
       var index = state.cart.findIndex((i) => i.product.sku === item.product.sku)
       state.cart[index].count = item.count
+    },
+
+    billingAddress (state, address) {
+      state.address.billing = address
+    },
+    shippingAddress (state, address) {
+      state.address.shipping = address
     }
   }
 })
