@@ -5,7 +5,7 @@
       <div class="card-header" id="paypal-heading">
         <h2 class="mb-0">
         <button @click="hideAll()" class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapse-paypal" aria-expanded="false" aria-controls="collapse-paypal">
-          Paypal
+          PayPal
         </button>
       </h2>
       </div>
