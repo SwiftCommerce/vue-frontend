@@ -15,7 +15,7 @@
           </div>
           <div id="place-order">
             <hr />
-            <button type="submit" class="btn btn-primary">Place Order</button>
+            <button type="submit" class="btn btn-primary" @click="createOrder()">Place Order</button>
           </div>
         </div>
         <div id="cart" class="col-6">
@@ -51,6 +51,64 @@ export default {
   methods: {
     imageURL: function (product) {
       return product.attributes.filter((attr) => attr.name === 'image')[0] || this.defaultImage
+    },
+
+    billingAddress: function () {
+      if (this.useShippingAddress) {
+        return this.$store.state.address.shipping
+      } else {
+        var address = {}
+
+        /* eslint-disable no-undef */
+        Array.from($('form#address-form')[0]).forEach(function (input) {
+          data[input.name] = input.value
+        })
+        return address
+      }
+    },
+    createOrder: function () {
+      var items = this.$store.state.cart.map(function (item) {
+        return {
+          productID: item.product.id,
+          quantity: item.count
+        }
+      })
+
+      var storedShipping = this.$store.state.address.shipping
+      var shipping = {
+        street: storedShipping.address_1,
+        street2: storedShipping.address_2,
+        zip: storedShipping.zip,
+        city: storedShipping.city,
+        state: storedShipping.state,
+        country: storedShipping.county
+      }
+
+      var formBilling = this.billingAddress()
+      var billing = {
+        street: formBilling.address_1,
+        street2: formBilling.address_2,
+        zip: formBilling.zip,
+        city: formBilling.city,
+        state: formBilling.state,
+        country: formBilling.county
+      }
+
+      var body = {
+        addresses: {
+          shipping: shipping,
+          billing: billing
+        },
+        items: items
+      }
+
+      this.$api.orders.defaults.headers.common['Authorization'] = this.$store.state.authToken
+      this.$api.orders.post('', body).then((response) => {
+        this.$store.commit('authToken', response.data.authToken)
+        alert('Success!')
+      }).catch((error) => {
+        alert('Error: ', error)
+      })
     }
   }
 }
