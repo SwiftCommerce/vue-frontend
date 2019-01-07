@@ -12,7 +12,7 @@
       <form-element name="country" required>Country:</form-element>
       <form-element name="phone_number" type="tel">Phone Number:</form-element>
 
-      <button v-if="next" type="submit" class="btn btn-info" @click="submit()" onsubmit="return false">Next</button>
+      <button v-if="next" type="submit" class="btn btn-info" @click.prevent="submit()" onsubmit="return false">Next</button>
     </form>
 </template>
 
@@ -22,13 +22,24 @@ import FormElement from '@/components/utilities/FormElement.vue'
 export default {
   components: { FormElement },
   props: {
-    next: { type: String }
+    next: { type: String },
+    stateMutation: { type: String }
   },
   methods: {
     submit: function (event) {
       this.$router.replace('/shipping')
       if (!this.validateFields()) { return }
       if (this.next) {
+        if (this.stateMutation) {
+          var data = {}
+
+          /* eslint-disable no-undef */
+          Array.from($('form#address-form')[0]).forEach(function (input) {
+            data[input.name] = input.value
+          })
+          this.$store.commit(this.stateMutation, data)
+        }
+
         this.$router.push({name: this.next})
       }
     },
