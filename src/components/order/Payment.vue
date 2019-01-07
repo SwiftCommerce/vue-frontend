@@ -68,10 +68,7 @@ export default {
     },
 
     hideAll: function () {
-      let cards = document.getElementsByClassName('collapse')
-      Array.from(cards).forEach(function (card) {
-        card.classList.remove('show')
-      })
+      $('.collapse').collapse('hide')
     }
   }
 }
