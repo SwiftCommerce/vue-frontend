@@ -116,7 +116,7 @@ export default {
       this.$api.orders.defaults.headers.common['Authorization'] = this.$store.state.authToken
       this.$api.orders.post('', body).then((response) => {
         this.$store.commit('authToken', response.data.authToken)
-        alert('Success!')
+        this.$router.push({name: 'OrderSuccess'})
       }).catch((error) => {
         alert('Error: ', error)
       })
