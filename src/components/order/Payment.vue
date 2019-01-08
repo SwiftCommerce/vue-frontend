@@ -28,7 +28,7 @@
 
       <div id="collapse-stripe" class="collapse" aria-labelledby="stripe-heading" data-parent="#stripe">
         <div class="card-body">
-          <form action="/charge" method="post" id="payment-form">
+          <form id="payment-form">
             <div class="form-row">
               <div id="stripe-card-element">
                 <!-- A Stripe Element will be inserted here. -->
@@ -50,11 +50,17 @@ export default {
   mounted: function () {
     this.configureStripe()
   },
+  data: function () {
+    return {
+      stripe: null,
+      stripeCard: null
+    }
+  },
   methods: {
     configureStripe: function () {
       /* eslint-disable no-undef */
-      var stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx')
-      var elements = stripe.elements()
+      this.stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx')
+      var elements = this.stripe.elements()
 
       var style = {
         base: {
@@ -63,8 +69,49 @@ export default {
         }
       }
 
-      var card = elements.create('card', { style: style })
-      card.mount('#stripe-card-element')
+      this.stripeCard = elements.create('card', { style: style })
+      this.stripeCard.mount('#stripe-card-element')
+    },
+
+    createStripePayment: function (orderID) {
+      return new Promise((resolve, reject) => {
+        this.stripe.createToken(this.stripeCard).then((result) => {
+          if (result.error) {
+            reject(result.error)
+          } else {
+            return this.$api.orders.post(`/${orderID}/payments/stripe-cc`, {
+              stripeToken: result.token,
+              currency: 'USD'
+            })
+          }
+        }).then((response) => {
+          resolve()
+        }).catch(reject)
+      })
+    },
+    createPayPalPayment: function (orderID) {
+
+    },
+    
+    createPayment: function (orderID) {
+      var paymentMethod = $('div.collapse.show').parents().first().id
+      var method
+      var error
+      switch (paymentMethod) {
+        case 'paypal': method = this.createPayPalPayment
+        case 'stripe': method = this.createStripePayment
+        default: error = new Error('No valid payment method selected.')
+      }
+
+      return new Promise((resolve, reject) => {
+        if (method) {
+          method(orderID).then(resolve).catch(reject)
+        } else if (error) {
+          reject(error)
+        } else {
+          reject(new Error('No valid payment method selected.'))
+        }
+      })
     },
 
     hideAll: function () {
