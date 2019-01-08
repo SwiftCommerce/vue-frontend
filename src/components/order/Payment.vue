@@ -92,14 +92,18 @@ export default {
     createPayPalPayment: function (orderID) {
 
     },
-    
+
     createPayment: function (orderID) {
       var paymentMethod = $('div.collapse.show').parents().first().id
       var method
       var error
       switch (paymentMethod) {
-        case 'paypal': method = this.createPayPalPayment
-        case 'stripe': method = this.createStripePayment
+        case 'paypal':
+          method = this.createPayPalPayment
+          break
+        case 'stripe':
+          method = this.createStripePayment
+          break
         default: error = new Error('No valid payment method selected.')
       }
 

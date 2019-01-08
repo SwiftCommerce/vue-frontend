@@ -1,6 +1,6 @@
 <template>
   <page id="order-page" name="Order">
-    
+
     <div v-if="showLoader" id="loader">
       <div class="centered text-center">
         <div id="spinner" class="spinner-border" role="status">
@@ -138,7 +138,7 @@ export default {
       this.$api.orders.defaults.headers.common['Authorization'] = this.$store.state.authToken
       this.$api.orders.post('', body).then((response) => {
         this.$store.commit('authToken', response.data.authToken)
-        //return Payment.methods.createOrder(response.data.id)
+        // return Payment.methods.createOrder(response.data.id)
       }).then(() => {
         this.showLoader = false
       }).catch((error) => {
