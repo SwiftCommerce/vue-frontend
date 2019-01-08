@@ -13,6 +13,11 @@
 
             <address-form v-if="!useShippingAddress" state-mutation="billingAddress"></address-form>
           </div>
+          <div id="order-comment">
+            <hr />
+            <label for="comment">Leave any comments about the order here:</label>
+            <textarea v-model="orderComment" class="form-control" name="comment" id="comment"/>
+          </div>
           <div id="place-order">
             <hr />
             <button type="submit" class="btn btn-primary" @click="createOrder()">Place Order</button>
@@ -45,6 +50,7 @@ export default {
   data: function () {
     return {
       useShippingAddress: true,
+      orderComment: null,
       defaultImage: require('@/assets/fa-image.png')
     }
   },
@@ -95,6 +101,11 @@ export default {
       }
 
       var body = {
+        firstname: formBilling.firstname,
+        lastname: formBilling.lastname,
+        company: formBilling.company,
+        phone: formBilling.phone_number,
+        comment: this.orderComment,
         addresses: {
           shipping: shipping,
           billing: billing
