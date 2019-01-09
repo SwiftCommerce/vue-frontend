@@ -12,7 +12,10 @@
     <div v-if="error" class="row">
       <div class="col-12">
         <div class="alert alert-danger" role="alert">
-          <p>{{ error }}</p>
+          {{ error }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
       </div>
     </div>
@@ -139,9 +142,10 @@ export default {
       this.$api.orders.defaults.headers.common['Authorization'] = this.$store.state.authToken
       this.$api.orders.post('', body).then((response) => {
         this.$store.commit('authToken', response.data.authToken)
-        // return Payment.methods.createOrder(response.data.id)
+        return Payment.methods.createPayment(response.data.id)
       }).then(() => {
         this.showLoader = false
+        this.$router.push({ name: 'OrderSuccess' })
       }).catch((error) => {
         this.error = error.message
         this.showLoader = false
