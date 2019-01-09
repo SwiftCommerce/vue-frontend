@@ -71,12 +71,13 @@ export default {
       defaultImage: require('@/assets/fa-image.png'),
 
       error: null,
-      showLoader: false
+      showLoader: this.$route.query.loading === 'true'
     }
   },
   methods: {
     imageURL: function (product) {
-      return product.attributes.filter((attr) => attr.name === 'image')[0] || this.defaultImage
+      let attribute = product.attributes.filter((attr) => attr.name === 'image')[0]
+      return attribute ? attribute.value || this.defaultImage : this.defaultImage
     },
 
     billingAddress: function () {
