@@ -96,7 +96,7 @@ export default {
     },
 
     createPayment: function (orderID) {
-      var paymentMethod = $('div.collapse.show').parents().first().id
+      var paymentMethod = $('div.collapse.show').parents()[0].id
       var method
       var error
       switch (paymentMethod) {
