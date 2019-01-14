@@ -19,7 +19,7 @@ export default {
   },
   data: function () {
     return {
-      error: null
+      error: this.watch
     }
   },
   methods: {
@@ -27,7 +27,6 @@ export default {
       this.error = null
     },
     show: function (value, old) {
-      console.log(value)
       this.error = value
     }
   }
