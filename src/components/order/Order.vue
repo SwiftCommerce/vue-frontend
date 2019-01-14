@@ -11,12 +11,7 @@
 
     <div v-if="error" class="row">
       <div class="col-12">
-        <div class="alert alert-danger" role="alert">
-          {{ error }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+        <error-alert :watch="error"></error-alert>
       </div>
     </div>
 
@@ -63,10 +58,11 @@
 <script>
 import Page from '@/components/page/Page.vue'
 import Payment from '@/components/order/Payment.vue'
+import ErrorAlert from '@/components/utilities/Error.vue'
 import AddressForm from '@/components/order/AddressForm.vue'
 
 export default {
-  components: { Page, Payment, AddressForm },
+  components: { Page, Payment, ErrorAlert, AddressForm },
   data: function () {
     return {
       useShippingAddress: true,
@@ -144,10 +140,11 @@ export default {
         this.$store.commit('authToken', response.data.authToken)
         return Payment.methods.createPayment(response.data.id)
       }).then(() => {
+        this.error = null
         this.showLoader = false
         this.$router.push({ name: 'OrderSuccess' })
       }).catch((error) => {
-        this.error = error.message
+        this.error = error
         this.showLoader = false
       })
     }
