@@ -86,9 +86,7 @@ export default {
               currency: 'USD'
             })
           }
-        }).then((response) => {
-          resolve()
-        }).catch(reject)
+        }).then((response) => resolve()).catch(reject)
       })
     },
     createPayPalPayment: function (orderID) {
