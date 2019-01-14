@@ -18,7 +18,7 @@
     <div class="row">
       <div id="order-info" class="col-6">
         <div id="payment">
-          <payment></payment>
+          <payment ref="payment"></payment>
         </div>
         <div id="address-form">
           <hr />
@@ -138,7 +138,7 @@ export default {
       this.$api.orders.defaults.headers.common['Authorization'] = this.$store.state.authToken
       this.$api.orders.post('', body).then((response) => {
         this.$store.commit('authToken', response.data.authToken)
-        return Payment.methods.createPayment(response.data.id)
+        return this.$refs.payment.createPayment(response.data.id)
       }).then(() => {
         this.error = null
         this.showLoader = false
