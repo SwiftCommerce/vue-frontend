@@ -81,7 +81,7 @@ export default {
           if (result.error) {
             reject(result.error)
           } else {
-            return this.$api.orders.post(`/${orderID}/payments/stripe-cc`, {
+            return this.$api.orders.post(`/${orderID}/payment/stripe-cc`, {
               stripeToken: result.token,
               currency: 'USD'
             })
