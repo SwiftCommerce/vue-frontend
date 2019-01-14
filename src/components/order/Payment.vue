@@ -82,7 +82,7 @@ export default {
             reject(result.error)
           } else {
             return this.$api.orders.post(`/${orderID}/payment/stripe-cc`, {
-              stripeToken: result.token,
+              stripeToken: result.token.id,
               currency: 'USD'
             })
           }
