@@ -144,6 +144,8 @@ export default {
       }).then(() => {
         this.error = null
         this.showLoader = false
+
+        this.$store.commit('emptyCard')
         this.$router.push({ name: 'OrderSuccess' })
       }).catch((error) => {
         this.error = error

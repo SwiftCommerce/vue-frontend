@@ -42,6 +42,9 @@ export default new Vuex.Store({
       var index = state.cart.findIndex((i) => i.product.sku === item.product.sku)
       state.cart[index].count = item.count
     },
+    emptyCard (state) {
+      state.cart = []
+    },
 
     billingAddress (state, address) {
       state.address.billing = address
