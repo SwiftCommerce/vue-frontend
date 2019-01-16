@@ -32,9 +32,12 @@
             <input v-model="productCount" type="number" class="form-control" placeholder="Qty" aria-label="Quantity" aria-describedby="basic-addon1">
           </div>
 
-          <button v-if="price && productCount > 0" type="button" class="btn btn-primary" @click="addToCart()">Add to Cart</button>
-          <button v-else type="button" class="btn btn-primary" disabled>Add to Cart</button>
+          <span>
+            <button v-if="price && productCount > 0" id="add-to-cart" type="button" class="btn btn-primary" @click="addToCart()">Add to Cart</button>
+            <button v-else type="button" class="btn btn-primary" disabled>Add to Cart</button>
 
+            <font-awesome id="added-to-cart" class="text-success" style="display: none;" icon="check" />
+          </span>
         </div>
       </div>
     </div>
@@ -106,12 +109,21 @@ export default {
       return symbol + roundedString
     },
     addToCart: function () {
+      /* eslint-disable no-undef */
+      $('#add-to-cart').hide()
+      $('#added-to-cart').show()
+
       let cartProduct = {
         count: parseInt(this.productCount),
         product: this.product
       }
 
       this.$store.commit('addToCart', cartProduct)
+
+      window.setTimeout(() => {
+        $('#add-to-cart').show()
+        $('#added-to-cart').hide()
+      }, 450)
     }
   }
 }
@@ -121,5 +133,11 @@ export default {
 #loading-spinner {
   height: 3em;
   width: 3em;
+}
+
+#added-to-cart {
+  height: 2em;
+  width: 2em;
+  padding: 0.5 1em;
 }
 </style>
