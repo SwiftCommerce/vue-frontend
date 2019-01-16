@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import currency from '@/currency'
+
 export default {
   mounted: function () {
     this.configureStripe()
@@ -78,7 +80,7 @@ export default {
           } else {
             return this.$api.orders.post(`/${orderID}/payment/stripe-cc`, {
               stripeToken: result.token.id,
-              currency: 'USD'
+              currency: currency.currenctCurrency()
             })
           }
         }).then((response) => resolve()).catch(reject)
@@ -88,7 +90,7 @@ export default {
     createPayPalPayment: function (orderID) {
       return new Promise((resolve, reject) => {
         this.$api.orders.post(`/${orderID}/payment/paypal/create`, {
-          currency: 'USD'
+          currency: currency.currenctCurrency()
         }).then((response) => {
           this.$store.commit('orderID', orderID)
           location.assign(response.data.href)
