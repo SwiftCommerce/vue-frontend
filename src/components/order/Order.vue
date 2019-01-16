@@ -193,6 +193,14 @@ export default {
   width: 5em;
 }
 
+#cart {
+  margin: 0;
+}
+
+#cart > ul {
+  width: 100%;
+}
+
 #cart-header {
   background-color: #f7f7f7;
 }
