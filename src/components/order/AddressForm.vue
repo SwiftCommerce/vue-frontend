@@ -12,7 +12,7 @@
       <form-element name="country" required>Country:</form-element>
       <form-element name="phone_number" type="tel">Phone Number:</form-element>
 
-      <button v-if="next" type="submit" class="btn btn-info" @click.prevent="submit()" onsubmit="return false">Next</button>
+      <button v-if="next" type="submit" class="btn btn-primary" @click.prevent="submit()" onsubmit="return false">Next</button>
     </form>
 </template>
 
