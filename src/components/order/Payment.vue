@@ -13,7 +13,7 @@
 
       <div id="collapse-paypal" class="collapse" aria-labelledby="paypal-heading" data-parent="#payment">
         <div class="card-body">
-          Payment inputs here.
+          PayPal payment selected
         </div>
       </div>
     </div>
@@ -32,12 +32,7 @@
         <div class="card-body">
           <form id="payment-form">
             <div class="form-row">
-              <div id="stripe-card-element">
-                <!-- A Stripe Element will be inserted here. -->
-              </div>
-
-              <!-- Used to display Element errors. -->
-              <div id="card-errors" role="alert"></div>
+              <div id="stripe-card-element"><!-- A Stripe Element will be inserted here. --></div>
             </div>
           </form>
         </div>
@@ -89,14 +84,42 @@ export default {
         }).then((response) => resolve()).catch(reject)
       })
     },
-    createPayPalPayment: function (orderID) {
 
+    createPayPalPayment: function (orderID) {
+      return new Promise((resolve, reject) => {
+        this.$api.orders.post(`/${orderID}/payment/paypal/create`, {
+          currency: 'USD'
+        }).then((response) => {
+          this.$store.commit('orderID', orderID)
+          location.assign(response.data.href)
+        })
+      })
+    },
+    executePayPalPayment: function () {
+      return new Promise((resolve, reject) => {
+        let payerID = this.$route.query.PayerID
+        let paymentID = this.$route.query.paymentId
+
+        this.$api.orders.post(
+          `/${this.$store.state.orderID}/payment/paypal/execute`,
+          { payerID: payerID, paymentID: paymentID },
+          { headers: {
+            'Authorization': `Bearer ${this.$store.state.authToken}`
+          }}
+        ).then((response) => resolve()).catch(reject)
+      })
     },
 
     createPayment: function (orderID) {
-      var paymentMethod = $('div.collapse.show').parents()[0].id
+      var paymentMethod
       var method
       var error
+
+      var paymentDiv = $('div.collapse.show').parents()[0]
+      if (paymentDiv) {
+        paymentMethod = paymentDiv.id
+      }
+
       switch (paymentMethod) {
         case 'paypal':
           method = this.createPayPalPayment
