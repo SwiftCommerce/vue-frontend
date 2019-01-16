@@ -97,6 +97,8 @@ export default {
       if (!this.product) { return }
 
       let price = this.product.prices.filter((price) => price.active)[0]
+      if (!price) { return undefined }
+
       return this.formattPrice(price)
     },
     formattPrice: function (price) {
