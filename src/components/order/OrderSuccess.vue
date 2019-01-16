@@ -2,14 +2,29 @@
   <div class="container">
     <div class="row">
       <div class="center-screen d-flex text-center">
-        <div id="success-spinner" class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
+        <div>
+          <font-awesome id="success-icon" class="text-success" icon="check" />
+          <h1 class="title">Success!</h1>
         </div>
-        <h1 id="title">Creating Payment</h1>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  mounted: function () {
+    this.redirect()
+  },
+  methods: {
+    redirect: function () {
+      window.setTimeout(() => {
+        this.$router.push({ name: 'HelloWorld' })
+      }, 1500)
+    }
+  }
+}
+</script>
 
 <style>
 .center-screen {
@@ -22,12 +37,12 @@
   min-height: 100vh;
 }
 
-#success-spinner {
-  height: 5em;
-  width: 5em;
+.title {
+  margin: 1em 0 0;
 }
 
-#title {
-  margin: 1em 0 0;
+#success-icon {
+  height: 5em;
+  width: 5em;
 }
 </style>
