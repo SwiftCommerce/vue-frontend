@@ -146,7 +146,10 @@ export default {
         items: items
       }
 
-      this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.authToken}`
+      if (this.$store.state.authToken) {
+        this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.authToken}`
+      }
+
       this.$api.orders.post('', body).then((response) => {
         this.$store.commit('authToken', response.data.authToken)
         this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${response.data.authToken}`
