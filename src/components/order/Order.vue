@@ -63,6 +63,17 @@ import AddressForm from '@/components/order/AddressForm.vue'
 
 export default {
   components: { Page, Payment, ErrorAlert, AddressForm },
+  mounted: function () {
+    if (this.$route.query.PayerID && this.$route.query.paymentId) {
+      this.$refs.payment.executePayPalPayment().then(() => {
+        this.$store.commit('emptyCart')
+        this.$router.push({ name: 'OrderSuccess' })
+      }).catch((error) => {
+        this.error = error
+        this.showLoader = false
+      })
+    }
+  },
   data: function () {
     return {
       useShippingAddress: true,
@@ -142,10 +153,7 @@ export default {
 
         return this.$refs.payment.createPayment(response.data.id)
       }).then(() => {
-        this.error = null
-        this.showLoader = false
-
-        this.$store.commit('emptyCard')
+        this.$store.commit('emptyCart')
         this.$router.push({ name: 'OrderSuccess' })
       }).catch((error) => {
         this.error = error

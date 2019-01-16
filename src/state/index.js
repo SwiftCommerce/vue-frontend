@@ -8,6 +8,7 @@ export default new Vuex.Store({
   plugins: [PersistantState()],
   state: {
     authToken: null,
+    orderID: null,
     categories: null,
     product: {},
     cart: [],
@@ -19,6 +20,9 @@ export default new Vuex.Store({
   mutations: {
     authToken (state, token) {
       state.authToken = token
+    },
+    orderID (state, id) {
+      state.orderID = id
     },
     categories (state, categories) {
       state.categories = categories
@@ -42,7 +46,7 @@ export default new Vuex.Store({
       var index = state.cart.findIndex((i) => i.product.sku === item.product.sku)
       state.cart[index].count = item.count
     },
-    emptyCard (state) {
+    emptyCart (state) {
       state.cart = []
     },
 
