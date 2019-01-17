@@ -15,5 +15,18 @@ export default {
   currenctCurrency: function () {
     let countryCode = this.currentCountryCode()
     return locales[countryCode]
+  },
+
+  getPrice: function (prices) {
+    let currency = this.currenctCurrency().toLowerCase()
+    let validPrices = prices.filter(function (price) {
+      let activeFrom = new Date(price.activeFrom)
+      let activeTo = new Date(price.activeTo)
+      let now = new Date()
+
+      return price.active && price.currency.toLowerCase() === currency && activeFrom < now && activeTo > now
+    })
+
+    return validPrices.sort(function (first, second) { return new Date(first.activeFrom) >= new Date(second.activeFrom) }).pop()
   }
 }
