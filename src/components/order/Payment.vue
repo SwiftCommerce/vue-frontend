@@ -13,7 +13,7 @@
 
       <div id="collapse-paypal" class="collapse" aria-labelledby="paypal-heading" data-parent="#payment">
         <div class="card-body">
-          PayPal payment selected
+          <pay-pal ref="paypal" @payment-succeeded="$emit('succeeded')" @payment-failed="$emit('failed')"></pay-pal>
         </div>
       </div>
     </div>
@@ -30,11 +30,7 @@
 
       <div id="collapse-stripe" class="collapse" aria-labelledby="stripe-heading" data-parent="#stripe">
         <div class="card-body">
-          <form id="payment-form">
-            <div class="form-row">
-              <div id="stripe-card-element"><!-- A Stripe Element will be inserted here. --></div>
-            </div>
-          </form>
+          <stripe ref="stripe" @payment-succeeded="$emit('succeeded')" @payment-failed="$emit('failed')"></stripe>
         </div>
       </div>
     </div>
@@ -43,98 +39,28 @@
 </template>
 
 <script>
-import currency from '@/currency'
+import PayPal from '@/components/order/payment/PayPal.vue'
+import Stripe from '@/components/order/payment/Stripe.vue'
 
 export default {
-  mounted: function () {
-    this.configureStripe()
-  },
-  data: function () {
-    return {
-      stripe: null,
-      stripeCard: null
-    }
-  },
+  components: { PayPal, Stripe },
   methods: {
-    configureStripe: function () {
-      /* eslint-disable no-undef */
-      this.stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx')
-      var elements = this.stripe.elements()
-
-      var style = {
-        base: {
-          fontSize: '16px',
-          color: '#32325d'
-        }
-      }
-
-      this.stripeCard = elements.create('card', { style: style })
-      this.stripeCard.mount('#stripe-card-element')
-    },
-
-    createStripePayment: function (orderID) {
-      return new Promise((resolve, reject) => {
-        this.stripe.createToken(this.stripeCard).then((result) => {
-          if (result.error) {
-            reject(result.error)
-          } else {
-            return this.$api.orders.post(`/${orderID}/payment/stripe-cc`, {
-              stripeToken: result.token.id,
-              currency: currency.currenctCurrency()
-            })
-          }
-        }).then((response) => resolve()).catch(reject)
-      })
-    },
-
-    createPayPalPayment: function (orderID) {
-      return new Promise((resolve, reject) => {
-        this.$api.orders.post(`/${orderID}/payment/paypal/create`, {
-          currency: currency.currenctCurrency()
-        }).then((response) => {
-          this.$store.commit('orderID', orderID)
-          location.assign(response.data.href)
-        })
-      })
-    },
-    executePayPalPayment: function () {
-      return new Promise((resolve, reject) => {
-        let payerID = this.$route.query.PayerID
-        let paymentID = this.$route.query.paymentId
-
-        this.$api.orders.post(
-          `/${this.$store.state.orderID}/payment/paypal/execute`,
-          { payerID: payerID, paymentID: paymentID },
-          { headers: {
-            'Authorization': `Bearer ${this.$store.state.authToken}`
-          }}
-        ).then((response) => resolve()).catch(reject)
-      })
-    },
-
     createPayment: function (orderID) {
-      var paymentMethod
       var method
       var error
 
+      /* eslint-disable no-undef */
       var paymentDiv = $('div.collapse.show').parents()[0]
       if (paymentDiv) {
-        paymentMethod = paymentDiv.id
-      }
-
-      switch (paymentMethod) {
-        case 'paypal':
-          method = this.createPayPalPayment
-          break
-        case 'stripe':
-          method = this.createStripePayment
-          break
-        default: error = new Error('No valid payment method selected.')
+        method = this.$refs[paymentDiv.id].createPayment
+      } else {
+        error = new Error('No valid payment method selected.')
       }
 
       return new Promise((resolve, reject) => {
         if (method) {
-          method(orderID).then(resolve).catch(reject)
+          method(orderID)
+          resolve()
         } else if (error) {
           reject(error)
         } else {
@@ -160,9 +86,5 @@ export default {
 <style>
 .icon {
   padding: 0.5em 1em;
-}
-
-#stripe-card-element {
-  width: 80%;
 }
 </style>
