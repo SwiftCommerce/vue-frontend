@@ -18,7 +18,7 @@
     <div class="row">
       <div id="order-info" class="col-6">
         <div id="payment">
-          <payment ref="payment"></payment>
+          <payment ref="payment" @succeeded="paymentSucceeded" @failed="paymentFailed"></payment>
         </div>
         <div id="address-form">
           <hr />
@@ -63,17 +63,6 @@ import AddressForm from '@/components/order/AddressForm.vue'
 
 export default {
   components: { Page, Payment, ErrorAlert, AddressForm },
-  mounted: function () {
-    if (this.$route.query.PayerID && this.$route.query.paymentId) {
-      this.$refs.payment.executePayPalPayment().then(() => {
-        this.$store.commit('emptyCart')
-        this.$router.push({ name: 'OrderSuccess' })
-      }).catch((error) => {
-        this.error = error
-        this.showLoader = false
-      })
-    }
-  },
   data: function () {
     return {
       useShippingAddress: true,
@@ -155,13 +144,19 @@ export default {
         this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${response.data.authToken}`
 
         return this.$refs.payment.createPayment(response.data.id)
-      }).then(() => {
-        this.$store.commit('emptyCart')
-        this.$router.push({ name: 'OrderSuccess' })
       }).catch((error) => {
         this.error = error
         this.showLoader = false
       })
+    },
+
+    paymentSucceeded: function () {
+      this.$store.commit('emptyCart')
+      this.$router.push({ name: 'OrderSuccess' })
+    },
+    paymentFailed: function (error) {
+      this.error = error
+      this.showLoader = false
     }
   }
 }
