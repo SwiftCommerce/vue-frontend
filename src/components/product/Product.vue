@@ -49,6 +49,8 @@
 import Page from '@/components/page/Page'
 import CategoryNav from '@/components/page/CategoryNav'
 
+import currency from '@/currency'
+
 export default {
   components: { Page, CategoryNav },
   data: function () {
@@ -96,7 +98,7 @@ export default {
     getPrice: function () {
       if (!this.product) { return }
 
-      let price = this.product.prices.filter((price) => price.active)[0]
+      let price = currency.getPrice(this.product.prices)
       if (!price) { return undefined }
 
       return this.formattPrice(price)
