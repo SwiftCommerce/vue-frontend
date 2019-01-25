@@ -18,18 +18,19 @@
           <router-link class="nav-link text-capitalize" :to="{ name: 'Category', params: { category: category.name }}">{{ category.name }}</router-link>
         </li>
       </ul>
-      <div id="cart" class="text-right">
-        <router-link :to="{ name: 'Cart' }">
-          <font-awesome icon="shopping-cart" id="cart-icon"/>
-          <span id="cart-badge" class="badge badge-primary badge-pill">{{ cartProductCount }}</span>
-        </router-link>
+      <div id="actions" class="text-right">
+        <nav-icon link="Cart" icon="shopping-cart" :badge="cartProductCount" />
+        <nav-icon link="SignIn" icon="sign-in-alt" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import NavIcon from '@/components/utilities/NavIcon'
+
 export default {
+  components: { NavIcon },
   data: function () {
     return {
       loading: true,
@@ -76,30 +77,17 @@ ul {
   float: left;
 }
 
+.nav {
+  margin-top: 0.5em;
+}
+
 #category-nav {
   background-color: rgb(235, 233, 233);
   margin-bottom: 1em;
 }
 
-#cart {
+#actions {
   float: right;
-  margin: 1em 0 0;
-}
-
-#cart > a:hover {
-  text-decoration: none;
-}
-
-#cart-icon {
-  font-size: 2em;
-  z-index: 0;
-  color: rgb(34, 34, 34);
-}
-
-#cart-badge {
-  position: relative;
-  z-index: 1;
-  right: 1.5em;
-  bottom: 1.5em;
+  margin: 1em 0 0.5em;
 }
 </style>
