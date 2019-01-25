@@ -2,25 +2,20 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import PersistantState from 'vuex-persistedstate'
 
+import cart from './cart'
+import auth from './auth'
+import address from './address'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   plugins: [PersistantState()],
   state: {
-    authToken: null,
     orderID: null,
     categories: null,
-    product: {},
-    cart: [],
-    address: {
-      billing: null,
-      shipping: null
-    }
+    product: {}
   },
   mutations: {
-    authToken (state, token) {
-      state.authToken = token
-    },
     orderID (state, id) {
       state.orderID = id
     },
@@ -29,32 +24,11 @@ export default new Vuex.Store({
     },
     product (state, product) {
       state.product = product
-    },
-
-    addToCart (state, item) {
-      var index = state.cart.findIndex((i) => i.product.sku === item.product.sku)
-      if (index >= 0) {
-        state.cart[index].count += item.count
-      } else {
-        state.cart.push(item)
-      }
-    },
-    removeFromCart (state, sku) {
-      state.cart = state.cart.filter((item) => item.product.sku !== sku)
-    },
-    cartItemCount (state, item) {
-      var index = state.cart.findIndex((i) => i.product.sku === item.product.sku)
-      state.cart[index].count = item.count
-    },
-    emptyCart (state) {
-      state.cart = []
-    },
-
-    billingAddress (state, address) {
-      state.address.billing = address
-    },
-    shippingAddress (state, address) {
-      state.address.shipping = address
     }
+  },
+  modules: {
+    cart: cart,
+    auth: auth,
+    address: address
   }
 })

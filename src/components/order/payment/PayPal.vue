@@ -30,7 +30,7 @@ export default {
         `/${this.$store.state.orderID}/payment/paypal/execute`,
         { payerID: payerID, paymentID: paymentID },
         { headers: {
-          'Authorization': `Bearer ${this.$store.state.authToken}`
+          'Authorization': `Bearer ${this.$store.state.auth.token}`
         }}
       ).then((response) => {
         this.$emit('payment-succeeded')

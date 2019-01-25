@@ -122,7 +122,7 @@ export default {
         product: this.product
       }
 
-      this.$store.commit('addToCart', cartProduct)
+      this.$store.commit('cart/add', cartProduct)
 
       window.setTimeout(() => {
         $('#add-to-cart').show()

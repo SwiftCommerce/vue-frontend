@@ -63,13 +63,13 @@ export default {
     },
     updateProductCount: function (item, count) {
       item.count = parseInt(count)
-      this.$store.commit('cartItemCount', item)
+      this.$store.commit('cart/itemCount', item)
     },
     setDelete: function (item) {
       this.deleteProduct = item.product
     },
     deleteItem: function () {
-      this.$store.commit('removeFromCart', this.deleteProduct.sku)
+      this.$store.commit('cart/remove', this.deleteProduct.sku)
     }
   }
 }

@@ -26,7 +26,7 @@
           <input v-model="useShippingAddress" type="checkbox" name="hide-address-form"/>
           <label for="hide-address-form">Use shipping address as billing address</label>
 
-          <address-form v-if="!useShippingAddress" state-mutation="billingAddress"></address-form>
+          <address-form v-if="!useShippingAddress" state-mutation="address/billing"></address-form>
         </div>
         <div id="order-comment">
           <hr />
@@ -135,13 +135,13 @@ export default {
         items: items
       }
 
-      if (this.$store.state.authToken) {
-        this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.authToken}`
+      if (this.$store.state.auth.token) {
+        this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.auth.token}`
       }
 
       this.$api.orders.post('', body).then((response) => {
-        this.$store.commit('authToken', response.data.authToken)
-        this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${response.data.authToken}`
+        this.$store.commit('auth/token', response.data.authToken)
+        this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${response.data.auth.token}`
 
         return this.$refs.payment.createPayment(response.data.id)
       }).catch((error) => {
@@ -151,7 +151,7 @@ export default {
     },
 
     paymentSucceeded: function () {
-      this.$store.commit('emptyCart')
+      this.$store.commit('cart/empty')
       this.$router.push({ name: 'OrderSuccess' })
     },
     paymentFailed: function (error) {
