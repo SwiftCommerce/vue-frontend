@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import HelloWorld from '@/components/HelloWorld'
+import SignIn from '@/components/auth/SignIn'
 import Category from '@/components/product/Category'
 import Product from '@/components/product/Product'
 import Cart from '@/components/product/Cart'
@@ -17,6 +18,11 @@ export default new Router({
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path: 'sign-in',
+      name: 'SignIn',
+      component: SignIn
     },
     {
       path: '/categories/:category',
