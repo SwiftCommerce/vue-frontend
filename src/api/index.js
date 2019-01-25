@@ -7,10 +7,14 @@ const products = axios.create({
 const orders = axios.create({
   baseURL: 'http://localhost:8082/v1/orders'
 })
+const users = axios.create({
+  baseURL: 'http://localhost:8083/v1/users'
+})
 
 const api = {
   products: products,
-  orders: orders
+  orders: orders,
+  users: users
 }
 
 Vue.use(function (Vue, options) {
