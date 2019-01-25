@@ -11,14 +11,15 @@ export default {
       }
     },
     remove (state, sku) {
-      state.cart = state.filter((item) => item.product.sku !== sku)
+      var index = state.findIndex((item) => item.product.sku === sku)
+      state.splice(index, 1)
     },
     itemCount (state, item) {
       var index = state.findIndex((i) => i.product.sku === item.product.sku)
       state[index].count = item.count
     },
     empty (state) {
-      state = []
+      state.length = 0
     }
   }
 }
