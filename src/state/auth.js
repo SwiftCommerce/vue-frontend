@@ -2,8 +2,7 @@ export default {
   namespaced: true,
   state: {
     token: localStorage.getItem('auth/token'),
-    refresh: localStorage.getItem('auth/refresh'),
-    isAuthenticated: false
+    refresh: localStorage.getItem('auth/refresh')
   },
   mutations: {
     token (_, token) {
@@ -11,9 +10,11 @@ export default {
     },
     refresh (_, refresh) {
       localStorage.setItem('auth/refresh', refresh)
-    },
-    isAuthenticated: function (state, is) {
-      state.isAuthenticated = is
+    }
+  },
+  getters: {
+    authenticated (state) {
+      return !(state.token == null)
     }
   }
 }
