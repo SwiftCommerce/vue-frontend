@@ -8,6 +8,7 @@ import Product from '@/components/product/Product'
 import Cart from '@/components/product/Cart'
 import Shipping from '@/components/order/Shipping'
 import Order from '@/components/order/Order'
+import OrderHistory from '@/components/order/OrderHistory'
 import OrderSuccess from '@/components/order/OrderSuccess'
 
 Vue.use(Router)
@@ -53,6 +54,11 @@ export default new Router({
       path: '/order-success',
       name: 'OrderSuccess',
       component: OrderSuccess
+    },
+    {
+      path: '/order-history',
+      name: 'OrderHistory',
+      component: OrderHistory
     }
   ]
 })
