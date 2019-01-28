@@ -1,5 +1,13 @@
 <template>
-  <router-link :to="{ name: link }">
+  <router-link
+    class="nav-icon"
+    :to="{ name: link }"
+    :data-toggle="popover ? 'popover' : false"
+    :data-placement="popover ? 'top': false"
+    :data-content="popover"
+    @mouseover.native="showPopover"
+    @mouseout.native="hidePopover"
+  >
     <font-awesome :icon="icon" class="action-icon"/>
     <span v-if="badge != null" class="action-badge badge badge-primary badge-pill">{{ badge }}</span>
   </router-link>
@@ -16,7 +24,23 @@ export default {
       type: String,
       required: true
     },
-    badge: { }
+    badge: { },
+    popover: {
+      type: String
+    }
+  },
+  methods: {
+    /* eslint-disable no-undef */
+    showPopover: function (event) {
+      if (this.popover) {
+        $(event.target).closest('.nav-icon').popover('show')
+      }
+    },
+    hidePopover: function (event) {
+      if (this.popover) {
+        $(event.target).closest('.nav-icon').popover('hide')
+      }
+    }
   }
 }
 </script>

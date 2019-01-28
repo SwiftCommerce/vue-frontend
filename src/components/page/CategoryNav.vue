@@ -19,8 +19,8 @@
         </li>
       </ul>
       <div id="actions" class="text-right">
-        <nav-icon link="Cart" icon="shopping-cart" :badge="cartProductCount" />
-        <nav-icon link="SignIn" icon="sign-in-alt" />
+        <nav-icon link="Cart" icon="shopping-cart" :badge="cartProductCount"/>
+        <nav-icon link="SignIn" icon="sign-in-alt" popover="Sign In"/>
       </div>
     </div>
   </div>
