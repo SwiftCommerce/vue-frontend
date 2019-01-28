@@ -1,15 +1,15 @@
 export default {
   namespaced: true,
   state: {
-    token: localStorage.getItem('auth/token'),
-    refresh: localStorage.getItem('auth/refresh')
+    token: null,
+    refresh: null
   },
   mutations: {
-    token (_, token) {
-      localStorage.setItem('auth/token', token)
+    token (state, token) {
+      state.token = token
     },
-    refresh (_, refresh) {
-      localStorage.setItem('auth/refresh', refresh)
+    refresh (state, refresh) {
+      state.refresh = refresh
     }
   },
   getters: {
