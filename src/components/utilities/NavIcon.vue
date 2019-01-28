@@ -29,8 +29,11 @@ export default {
       type: String
     }
   },
-  methods: {
+  beforeDestroy: function () {
     /* eslint-disable no-undef */
+    $('body>div.popover.show').remove()
+  },
+  methods: {
     showPopover: function (event) {
       if (this.popover) {
         $(event.target).closest('.nav-icon').popover('show')
