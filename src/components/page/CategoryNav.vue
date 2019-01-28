@@ -20,7 +20,9 @@
       </ul>
       <div id="actions" class="text-right">
         <nav-icon link="Cart" icon="shopping-cart" :badge="cartProductCount"/>
-        <nav-icon link="SignIn" icon="sign-in-alt" popover="Sign In"/>
+
+        <nav-icon v-if="!authenticated" link="SignIn" icon="sign-in-alt" popover="Sign In"/>
+        <nav-icon v-else link="HelloWorld" icon="sign-out-alt" popover="Sign Out" @click.native="signOut"/>
       </div>
     </div>
   </div>
@@ -37,7 +39,8 @@ export default {
       categories: null,
       error: null,
 
-      cartProductCount: this.$store.state.cart.length
+      cartProductCount: this.$store.state.cart.length,
+      authenticated: this.$store.getters['auth/authenticated']
     }
   },
   created () {
@@ -67,6 +70,13 @@ export default {
     },
     updateCartBadge: function () {
       this.cartProductCount = this.$store.state.cart.length
+    },
+    signOut: function () {
+      console.log('Sign Out')
+      this.$store.commit('auth/token', null)
+      this.$store.commit('auth/refresh', null)
+      this.authenticated = this.$store.getters['auth/authenticated']
+      console.log(this.authenticated)
     }
   }
 }
