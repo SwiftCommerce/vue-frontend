@@ -96,8 +96,12 @@ export default {
 
         this.loading = false
       }).catch((error) => {
-        this.error = error
         this.loading = false
+        if (error.response && error.response.data) {
+          this.error = new Error(error.response.data.reason)
+        } else {
+          this.error = error
+        }
       })
     },
     updateProducts: function () {
@@ -114,8 +118,12 @@ export default {
 
         this.loading = false
       }).catch((error) => {
-        this.error = error
         this.loading = false
+        if (error.response && error.response.data) {
+          this.error = new Error(error.response.data.reason)
+        } else {
+          this.error = error
+        }
       })
     },
     setProduct: function (product) {

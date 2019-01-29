@@ -141,7 +141,8 @@ export default {
 
       this.$api.orders.post('', body).then((response) => {
         this.$store.commit('auth/token', response.data.authToken)
-        this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${response.data.auth.token}`
+        this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${response.data.authToken}`
+        this.$api.orders.defaults.headers.common['Content-Type'] = `application/json; charset=utf-8`
 
         return this.$refs.payment.createPayment(response.data.id)
       }).catch((error) => {
@@ -155,7 +156,17 @@ export default {
       this.$router.push({ name: 'OrderSuccess' })
     },
     paymentFailed: function (error) {
-      this.error = error
+      if (error && error.response && error.response.data) {
+        if (error.response.data.message) {
+          this.error = new Error(error.response.data.message)
+        } else if (error.response.data.reason) {
+          this.error = new Error(error.response.data.reason)
+        } else {
+          this.error = error
+        }
+      } else {
+        this.error = error
+      }
       this.showLoader = false
     }
   }

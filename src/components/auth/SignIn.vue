@@ -1,12 +1,6 @@
 <template>
   <page name="Sign In">
-    <div v-if="error" class="alert alert-danger" role="alert">
-      {{ error }}
-
-      <button type="button" class="close" aria-label="Close" @click="dismissAlert()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+    <error-alert :watch="error" />
 
     <form id="signin-form" class="needs-validation" novalidate>
       <div class="form-group">
@@ -32,10 +26,11 @@
 </template>
 
 <script>
-import Page from '@/components/page/Page.vue'
+import Page from '@/components/page/Page'
+import ErrorAlert from '@/components/utilities/Error'
 
 export default {
-  components: { Page },
+  components: { Page, ErrorAlert },
   data: function () {
     return {
       error: null,
@@ -57,9 +52,9 @@ export default {
       }).catch((error) => {
         this.submiting = false
         if (error.response.data) {
-          this.error = error.response.data.error
+          this.error = new Error(error.response.data.error)
         } else {
-          this.error = 'Authentication failed with unknown error'
+          this.error = new Error('Authentication failed with unknown error')
         }
       })
     },
@@ -68,9 +63,6 @@ export default {
 
       form.classList.add('was-validated')
       return form.checkValidity()
-    },
-    dismissAlert: function () {
-      this.error = null
     }
   }
 }
