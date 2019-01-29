@@ -21,8 +21,13 @@
       <div id="actions" class="text-right">
         <nav-icon link="Cart" icon="shopping-cart" :badge="cartProductCount"/>
 
-        <nav-icon v-if="!authenticated" link="SignIn" icon="sign-in-alt" popover="Sign In"/>
-        <nav-icon v-else link="HelloWorld" icon="sign-out-alt" popover="Sign Out" @click.native="signOut"/>
+        <span v-if="!authenticated" id="unauth-icons">
+          <nav-icon link="SignIn" icon="sign-in-alt" popover="Sign In"/>
+        </span>
+        <span v-else id="auth-icons">
+          <nav-icon link="HelloWorld" icon="sign-out-alt" popover="Sign Out" @click.native="signOut"/>
+          <nav-icon link="OrderHistory" icon="history" popover="Order History"/>
+        </span>
       </div>
     </div>
   </div>
@@ -99,5 +104,9 @@ ul {
 #actions {
   float: right;
   margin: 1em 0 0.5em;
+}
+
+#actions > span > .nav-icon {
+  margin-right: 0.5em;
 }
 </style>
