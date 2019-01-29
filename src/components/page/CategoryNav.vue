@@ -77,11 +77,9 @@ export default {
       this.cartProductCount = this.$store.state.cart.length
     },
     signOut: function () {
-      console.log('Sign Out')
       this.$store.commit('auth/token', null)
       this.$store.commit('auth/refresh', null)
       this.authenticated = this.$store.getters['auth/authenticated']
-      console.log(this.authenticated)
     }
   }
 }
