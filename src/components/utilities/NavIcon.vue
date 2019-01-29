@@ -1,14 +1,14 @@
 <template>
-  <router-link
-    class="nav-icon"
-    :to="{ name: link }"
-    :data-toggle="popover ? 'popover' : false"
-    :data-placement="popover ? 'top': false"
-    :data-content="popover"
-    @mouseover.native="showPopover"
-    @mouseout.native="hidePopover"
-  >
-    <font-awesome :icon="icon" class="action-icon"/>
+  <router-link class="nav-icon" :to="{ name: link }">
+    <font-awesome
+      class="action-icon"
+      :icon="icon"
+      :data-toggle="popover ? 'popover' : false"
+      :data-placement="popover ? 'top': false"
+      :data-content="popover"
+      @mouseover="showPopover"
+      @mouseout="hidePopover"
+    />
     <span v-if="badge != null" class="action-badge badge badge-primary badge-pill">{{ badge }}</span>
   </router-link>
 </template>
@@ -36,12 +36,12 @@ export default {
   methods: {
     showPopover: function (event) {
       if (this.popover) {
-        $(event.target).closest('.nav-icon').popover('show')
+        $(event.target).closest('.action-icon').popover('show')
       }
     },
     hidePopover: function (event) {
       if (this.popover) {
-        $(event.target).closest('.nav-icon').popover('hide')
+        $(event.target).closest('.action-icon').popover('hide')
       }
     }
   }
