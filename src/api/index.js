@@ -14,11 +14,8 @@ const users = axios.create({
 orders.interceptors.response.use(null, function (error) {
   var config = error.config
   var refresh = JSON.parse(localStorage.getItem('vuex')).auth.refresh
-  var token = JSON.parse(localStorage.getItem('vuex')).auth.token
   if (config && refresh && error.response && error.response.data && error.response.data.reason === 'Expiration claim failed') {
     return users.post('/accessToken', { refreshToken: refresh }).then((response) => {
-      console.log(token)
-      console.log(response.data.accessToken)
       config.headers['Authorization'] = `Bearer ${response.data.accessToken}`
       return axios.request(config)
     })
