@@ -47,6 +47,7 @@ export default {
       this.$api.users.post('/login', { email: email, password: password }).then((response) => {
         this.$store.commit('auth/token', response.data.accessToken)
         this.$store.commit('auth/refresh', response.data.refreshToken)
+        this.$store.commit('auth/authenticated', true)
 
         this.$router.push({ name: 'HelloWorld' })
       }).catch((error) => {

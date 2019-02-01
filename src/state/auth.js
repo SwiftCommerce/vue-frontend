@@ -2,7 +2,8 @@ export default {
   namespaced: true,
   state: {
     token: null,
-    refresh: null
+    refresh: null,
+    isAuthenticated: false
   },
   mutations: {
     token (state, token) {
@@ -10,11 +11,9 @@ export default {
     },
     refresh (state, refresh) {
       state.refresh = refresh
-    }
-  },
-  getters: {
-    authenticated (state) {
-      return !(state.token == null)
+    },
+    authenticated (state, authenticated) {
+      state.isAuthenticated = authenticated
     }
   }
 }

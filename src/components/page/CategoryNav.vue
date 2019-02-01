@@ -45,7 +45,7 @@ export default {
       error: null,
 
       cartProductCount: this.$store.state.cart.length,
-      authenticated: this.$store.getters['auth/authenticated']
+      authenticated: this.$store.state.auth.isAuthenticated
     }
   },
   created () {
@@ -79,7 +79,8 @@ export default {
     signOut: function () {
       this.$store.commit('auth/token', null)
       this.$store.commit('auth/refresh', null)
-      this.authenticated = this.$store.getters['auth/authenticated']
+      this.$store.commit('auth/authenticated', false)
+      this.authenticated = this.$store.state.auth.isAuthenticated
     }
   }
 }

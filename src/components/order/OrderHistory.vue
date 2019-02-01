@@ -8,7 +8,13 @@
 
     <error-alert :watch="error" />
 
-    <div v-if="$store.getters['auth/authenticated']">
+    <div v-if="$store.state.auth.isAuthenticated">
+      <div v-if="orders.length === 0">
+        <div class="alert alert-info" role="alert">
+          <p>Looks like you don't have any orders yet! Your future order will appear here so you can view their details any time you like.</p>
+        </div>
+      </div>
+
       <div class="list-group list-group-flush">
         <div v-for="order in orders" :key="order.id" class="list-group-item">
           <p>ID: {{ order.id }}</p>
