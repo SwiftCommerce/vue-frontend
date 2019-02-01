@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import axios from 'axios'
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 const products = axios.create({
-  baseURL: 'http://localhost:8080/v1/products'
+  baseURL: isProduction ? 'api.demo.swiftcommerce.co/v1/products' : 'http://localhost:8080/v1/products'
 })
 const orders = axios.create({
-  baseURL: 'http://localhost:8082/v1/orders'
+  baseURL: isProduction ? 'api.demo.swiftcommerce.co/v1/orders' : 'http://localhost:8082/v1/orders'
 })
 const users = axios.create({
   baseURL: 'http://localhost:8083/v1/users'
