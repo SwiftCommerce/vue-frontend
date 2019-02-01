@@ -105,16 +105,7 @@ export default {
       let price = currency.getPrice(this.product.prices)
       if (!price) { return undefined }
 
-      return this.formattPrice(price)
-    },
-    formattPrice: function (price) {
-      let string = price.cents.toString()
-
-      let locale = window.navigator.language
-      let symbol = price.cents.toLocaleString(locale, { style: 'currency', currency: price.currency }).replace(/(\d*[.,]*)+/g, '')
-
-      let roundedString = string.slice(0, string.length - 2) + '.' + string.slice(string.length - 2)
-      return symbol + roundedString
+      return currency.formatPrice(price)
     },
     addToCart: function () {
       /* eslint-disable no-undef */

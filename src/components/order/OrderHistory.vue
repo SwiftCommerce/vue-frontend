@@ -17,7 +17,8 @@
 
       <div class="list-group list-group-flush">
         <div v-for="order in orders" :key="order.id" class="list-group-item">
-          <p>ID: {{ order.id }}</p>
+          <p>Order No. {{ order.id }}</p>
+          <p>{{ totalPrice(order) }}</p>
         </div>
       </div>
     </div>
@@ -33,6 +34,8 @@
 <script>
 import Page from '@/components/page/Page'
 import ErrorAlert from '@/components/utilities/Error'
+
+import currency from '@/currency'
 
 export default {
   components: { Page, ErrorAlert },
@@ -53,15 +56,22 @@ export default {
       this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.auth.token}`
       this.$api.orders.get('').then((response) => {
         this.loading = false
-        console.log(response)
+        this.orders = response.data.sort((first, second) => second.id - first.id)
       }).catch((error) => {
-        console.log(error)
         this.loading = false
         if (error.response && error.response.data) {
           this.error = new Error(error.response.data.reason)
         } else {
           this.error = new Error('Failed to fetch order history')
         }
+      })
+    },
+    totalPrice: function (order) {
+      var prices = this.orders.map((order) => currency.getPrice(order.prices))
+      var cents = prices.reduce((result, price) => result + price.cents, 0)
+      return currency.formatPrice({
+        cents: cents,
+        currency: prices[0].currency
       })
     }
   }

@@ -28,5 +28,14 @@ export default {
     })
 
     return validPrices.sort(function (first, second) { return new Date(first.activeFrom) >= new Date(second.activeFrom) }).pop()
+  },
+  formatPrice: function (price) {
+    let string = price.cents.toString()
+
+    let locale = window.navigator.language
+    let symbol = price.cents.toLocaleString(locale, { style: 'currency', currency: price.currency }).replace(/(\d*[.,]*)+/g, '')
+
+    let roundedString = string.slice(0, string.length - 2) + '.' + string.slice(string.length - 2)
+    return symbol + roundedString
   }
 }
