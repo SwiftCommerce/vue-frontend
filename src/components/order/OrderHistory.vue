@@ -9,7 +9,7 @@
     <error-alert :watch="error" />
 
     <div v-if="$store.state.auth.isAuthenticated">
-      <div v-if="orders.length === 0">
+      <div v-if="!loading && orders.length === 0">
         <div class="alert alert-info" role="alert">
           <p>Looks like you don't have any orders yet! Your future order will appear here so you can view their details any time you like.</p>
         </div>
