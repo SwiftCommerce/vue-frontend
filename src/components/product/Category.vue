@@ -59,7 +59,7 @@ export default {
 
       products: [],
       allProductsFetched: false,
-      page: 1,
+      page: 0,
 
       defaultImage: require('@/assets/fa-image.png')
     }
@@ -88,7 +88,7 @@ export default {
     getProducts: function () {
       this.error = null
       this.loading = true
-      this.page = 1
+      this.page = 0
 
       this.$api.products.get(`?categories[]=${this.$route.params.category}&page=${this.page}&pageSize=25`).then((response) => {
         this.products = response.data.products
