@@ -7,6 +7,10 @@ import router from './router'
 import store from './state'
 import api from './api'
 
+window.$ = require('jquery')
+require('popper.js')
+require('bootstrap')
+
 Vue.config.productionTip = false
 
 Vue.component('font-awesome', FontAwesome)
