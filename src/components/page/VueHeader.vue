@@ -5,7 +5,7 @@
         <router-link :to="{ name: 'HelloWorld' }"><img :src="logo" /></router-link>
       </div>
       <h1 class="col-auto mx-auto"><slot></slot></h1>
-      <div style="width: 8em; padding: 0 1rem;"></div>
+      <div class="col-1"></div>
     </div>
   </header>
 </template>
