@@ -2,7 +2,7 @@
   <footer class="border-top">
     <div class="row">
       <ul id="footer" class="col">
-        <li class="footer-item">&copy; Skelpo {{ new Date().getFullYear() }}</li>
+        <li class="footer-item">&copy; Skelpo 2018 - {{ new Date().getFullYear() }}</li>
       </ul>
     </div>
   </footer>
