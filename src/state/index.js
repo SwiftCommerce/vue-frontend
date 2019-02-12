@@ -9,7 +9,7 @@ import address from './address'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  plugins: [PersistantState()],
+  plugins: [PersistantState({ paths: ['orderID', 'cart', 'auth', 'address'] })],
   state: {
     orderID: null,
     categories: null,
