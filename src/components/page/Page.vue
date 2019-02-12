@@ -1,7 +1,9 @@
 <template>
-  <div id="page" class="container">
+  <div>
     <vue-header>{{ name }}</vue-header>
-    <slot></slot>
+    <div id="page" class="container">
+      <slot></slot>
+    </div>
     <vue-footer></vue-footer>
   </div>
 </template>
