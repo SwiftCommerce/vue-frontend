@@ -14,10 +14,10 @@
       <p>{{ error }}</p>
     </div>
     <div v-if="product && !loading" class="row">
-      <div id="image" class="col-6">
+      <div id="image" class="col-12 col-lg-6">
         <img :src="imgaeURL()" />
       </div>
-      <div id="product-modifications" class="col-6">
+      <div id="product-modifications" class="col-12 col-lg-6">
         <div id="product-info" class="row">
           <h5 id="price" class="col-6">{{ price || 'Not for Sale' }}</h5>
           <p v-if="manufacturer" class="col-6 text-right">By {{ manufacturer }}</p>
@@ -138,5 +138,9 @@ export default {
   height: 2em;
   width: 2em;
   padding: 0.5 1em;
+}
+
+#image > img {
+  width: 95%
 }
 </style>
