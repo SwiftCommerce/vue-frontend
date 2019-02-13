@@ -13,9 +13,9 @@ export default {
   data: function () {
     return {
       logo: require('@/assets/swift_commerce_text.svg')
-    }
+    };
   }
-}
+};
 </script>
 
 <style>

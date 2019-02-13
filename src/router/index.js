@@ -1,17 +1,17 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-import HelloWorld from '@/components/HelloWorld'
-import SignIn from '@/components/auth/SignIn'
-import Category from '@/components/product/Category'
-import Product from '@/components/product/Product'
-import Cart from '@/components/product/Cart'
-import Shipping from '@/components/order/Shipping'
-import Order from '@/components/order/Order'
-import OrderHistory from '@/components/order/OrderHistory'
-import OrderSuccess from '@/components/order/OrderSuccess'
+import HelloWorld from '@/components/HelloWorld';
+import SignIn from '@/components/auth/SignIn';
+import Category from '@/components/product/Category';
+import Product from '@/components/product/Product';
+import Cart from '@/components/product/Cart';
+import Shipping from '@/components/order/Shipping';
+import Order from '@/components/order/Order';
+import OrderHistory from '@/components/order/OrderHistory';
+import OrderSuccess from '@/components/order/OrderSuccess';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -61,4 +61,4 @@ export default new Router({
       component: OrderHistory
     }
   ]
-})
+});

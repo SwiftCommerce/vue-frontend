@@ -30,21 +30,21 @@ export default {
     }
   },
   beforeDestroy: function () {
-    $('body>div.popover.show').remove()
+    $('body>div.popover.show').remove();
   },
   methods: {
     showPopover: function (event) {
       if (this.popover) {
-        $(event.target).closest('.action-icon').popover('show')
+        $(event.target).closest('.action-icon').popover('show');
       }
     },
     hidePopover: function (event) {
       if (this.popover) {
-        $(event.target).closest('.action-icon').popover('hide')
+        $(event.target).closest('.action-icon').popover('hide');
       }
     }
   }
-}
+};
 </script>
 
 <style>

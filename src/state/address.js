@@ -6,10 +6,10 @@ export default {
   },
   mutations: {
     billing (state, address) {
-      state.billing = address
+      state.billing = address;
     },
     shipping (state, address) {
-      state.shipping = address
+      state.shipping = address;
     }
   }
-}
+};

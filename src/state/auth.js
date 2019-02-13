@@ -7,13 +7,13 @@ export default {
   },
   mutations: {
     token (state, token) {
-      state.token = token
+      state.token = token;
     },
     refresh (state, refresh) {
-      state.refresh = refresh
+      state.refresh = refresh;
     },
     authenticated (state, authenticated) {
-      state.isAuthenticated = authenticated
+      state.isAuthenticated = authenticated;
     }
   }
-}
+};

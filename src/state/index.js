@@ -1,12 +1,12 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import PersistantState from 'vuex-persistedstate'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import PersistantState from 'vuex-persistedstate';
 
-import cart from './cart'
-import auth from './auth'
-import address from './address'
+import cart from './cart';
+import auth from './auth';
+import address from './address';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   plugins: [PersistantState({ paths: ['orderID', 'cart', 'auth', 'address'] })],
@@ -17,13 +17,13 @@ export default new Vuex.Store({
   },
   mutations: {
     orderID (state, id) {
-      state.orderID = id
+      state.orderID = id;
     },
     categories (state, categories) {
-      state.categories = categories
+      state.categories = categories;
     },
     product (state, product) {
-      state.product = product
+      state.product = product;
     }
   },
   modules: {
@@ -31,4 +31,4 @@ export default new Vuex.Store({
     auth: auth,
     address: address
   }
-})
+});

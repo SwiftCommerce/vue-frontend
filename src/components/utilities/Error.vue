@@ -20,15 +20,15 @@ export default {
   data: function () {
     return {
       error: this.watch
-    }
+    };
   },
   methods: {
     hide: function () {
-      this.error = null
+      this.error = null;
     },
     show: function (value, old) {
-      this.error = value
+      this.error = value;
     }
   }
-}
+};
 </script>

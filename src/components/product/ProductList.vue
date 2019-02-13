@@ -83,9 +83,9 @@
 </template>
 
 <script>
-import query from '@/query'
-import Product from '@/objects/Product'
-import ErrorAlert from '@/components/utilities/Error.vue'
+import query from '@/query';
+import Product from '@/objects/Product';
+import ErrorAlert from '@/components/utilities/Error.vue';
 
 export default {
   components: { ErrorAlert },
@@ -95,16 +95,16 @@ export default {
     }
   },
   mounted: function () {
-    this.loadProducts()
+    this.loadProducts();
 
     $('button.sort-action').click((event) => {
-      var button = $(event.target)
-      window.button = button
-      this[button.parents().eq(1)[0].id] = button[0].value
+      var button = $(event.target);
+      window.button = button;
+      this[button.parents().eq(1)[0].id] = button[0].value;
 
-      button.siblings().removeClass('active')
-      button.addClass('active')
-    })
+      button.siblings().removeClass('active');
+      button.addClass('active');
+    });
   },
   data: function () {
     return {
@@ -118,72 +118,72 @@ export default {
 
       loading: true,
       error: null
-    }
+    };
   },
   watch: {
     'filters': 'loadProducts',
-    'sortDirection': function (value) { this.watch('sortDirection', value) },
-    'sortBy': function (value) { this.watch('sortBy', value) },
-    'page': function (value) { this.watch('page', value) },
+    'sortDirection': function (value) { this.watch('sortDirection', value); },
+    'sortBy': function (value) { this.watch('sortBy', value); },
+    'page': function (value) { this.watch('page', value); },
     'pageSize': function (value) {
       // If the page number we are on is greater than the page number possible with the new amount
       // of products per page, we move the to last possible page.
-      var maxPage = Math.ceil(this.productCount / this.pageSize)
+      var maxPage = Math.ceil(this.productCount / this.pageSize);
       if (this.page > maxPage) {
-        this.page = maxPage
+        this.page = maxPage;
       }
 
-      this.watch('pageSize', value)
+      this.watch('pageSize', value);
     }
   },
   computed: {
     pageCount: function () {
       if (this.productCount % this.pageSize === 0) {
-        return Math.floor(this.productCount / this.pageSize)
+        return Math.floor(this.productCount / this.pageSize);
       } else {
-        return Math.floor(this.productCount / this.pageSize) + 1
+        return Math.floor(this.productCount / this.pageSize) + 1;
       }
     },
     paginationNumbers: function () {
       if (this.page === 1) {
-        return this.pageCount > this.page ? [1, 2] : [1]
+        return this.pageCount > this.page ? [1, 2] : [1];
       } else if (this.page === this.pageCount) {
-        return this.pageCount > 1 ? [this.pageCount - 1, this.pageCount] : [1]
+        return this.pageCount > 1 ? [this.pageCount - 1, this.pageCount] : [1];
       } else {
-        return [this.page - 1, this.page, this.page + 1]
+        return [this.page - 1, this.page, this.page + 1];
       }
     }
   },
   methods: {
     watch: function (property, value) {
-      query[property] = value
-      this.loadProducts()
+      query[property] = value;
+      this.loadProducts();
     },
 
     setProduct: function (product) {
-      this.$store.commit('product', product)
+      this.$store.commit('product', product);
     },
     loadProducts: function () {
-      this.loading = true
-      this.error = null
+      this.loading = true;
+      this.error = null;
 
-      var query = new URLSearchParams({pageSize: this.pageSize, page: this.page - 1, sortBy: this.sortBy, sortDirection: this.sortDirection}).toString()
+      var query = new URLSearchParams({pageSize: this.pageSize, page: this.page - 1, sortBy: this.sortBy, sortDirection: this.sortDirection}).toString();
       if (this.filters) {
-        query = query.concat('&', this.filters)
+        query = query.concat('&', this.filters);
       }
 
       this.$api.products(`?${query}`).then((response) => {
-        this.products = response.data.products.map(Product.create)
-        this.productCount = response.data.count
+        this.products = response.data.products.map(Product.create);
+        this.productCount = response.data.count;
 
-        this.loading = false
+        this.loading = false;
       }).catch((error) => {
-        this.loading = false
-        this.error = error
-      })
+        this.loading = false;
+        this.error = error;
+      });
     }
   }
-}
+};
 </script>
 
 <style>

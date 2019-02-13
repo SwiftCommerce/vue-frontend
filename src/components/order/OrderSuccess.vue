@@ -14,16 +14,16 @@
 <script>
 export default {
   mounted: function () {
-    this.redirect()
+    this.redirect();
   },
   methods: {
     redirect: function () {
       window.setTimeout(() => {
-        this.$router.push({ name: 'HelloWorld' })
-      }, 1500)
+        this.$router.push({ name: 'HelloWorld' });
+      }, 1500);
     }
   }
-}
+};
 </script>
 
 <style>

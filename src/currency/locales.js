@@ -247,4 +247,4 @@ export default {
   ZA: 'ZAR',
   ZM: 'ZMK',
   ZW: 'ZWL'
-}
+};

@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import currency from '@/currency'
+import currency from '@/currency';
 
 export default {
   mounted: function () {
     if (this.$route.query.PayerID && this.$route.query.paymentId) {
-      this.executePayment()
+      this.executePayment();
     }
   },
   methods: {
@@ -18,13 +18,13 @@ export default {
       this.$api.orders.post(`/${orderID}/payment/paypal/create`, {
         currency: currency.currenctCurrency()
       }).then((response) => {
-        this.$store.commit('orderID', orderID)
-        location.assign(response.data.href)
-      })
+        this.$store.commit('orderID', orderID);
+        location.assign(response.data.href);
+      });
     },
     executePayment: function () {
-      let payerID = this.$route.query.PayerID
-      let paymentID = this.$route.query.paymentId
+      let payerID = this.$route.query.PayerID;
+      let paymentID = this.$route.query.paymentId;
 
       this.$api.orders.post(
         `/${this.$store.state.orderID}/payment/paypal/execute`,
@@ -33,11 +33,11 @@ export default {
           'Authorization': `Bearer ${this.$store.state.auth.token}`
         }}
       ).then((response) => {
-        this.$emit('payment-succeeded')
+        this.$emit('payment-succeeded');
       }).catch((error) => {
-        this.$emit('payment-failed', error)
-      })
+        this.$emit('payment-failed', error);
+      });
     }
   }
-}
+};
 </script>

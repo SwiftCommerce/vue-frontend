@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Page from '@/components/page/Page.vue'
-import CategoryNav from '@/components/page/CategoryNav.vue'
+import Page from '@/components/page/Page.vue';
+import CategoryNav from '@/components/page/CategoryNav.vue';
 
 export default {
   name: 'HelloWorld',
@@ -15,9 +15,9 @@ export default {
   data () {
     return {
       msg: 'Welcome to SwiftCommerce'
-    }
+    };
   }
-}
+};
 </script>
 
 <style>

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import FormElement from '@/components/utilities/FormElement.vue'
+import FormElement from '@/components/utilities/FormElement.vue';
 
 export default {
   components: { FormElement },
@@ -27,27 +27,27 @@ export default {
   },
   methods: {
     submit: function (event) {
-      this.$router.replace('/shipping')
-      if (!this.validateFields()) { return }
+      this.$router.replace('/shipping');
+      if (!this.validateFields()) { return; }
       if (this.next) {
         if (this.stateMutation) {
-          var data = {}
+          var data = {};
 
           Array.from($('form#address-form')[0]).forEach(function (input) {
-            data[input.name] = input.value
-          })
-          this.$store.commit(this.stateMutation, data)
+            data[input.name] = input.value;
+          });
+          this.$store.commit(this.stateMutation, data);
         }
 
-        this.$router.push({name: this.next})
+        this.$router.push({name: this.next});
       }
     },
     validateFields: function () {
-      var form = document.getElementById('address-form')
+      var form = document.getElementById('address-form');
 
-      form.classList.add('was-validated')
-      return form.checkValidity()
+      form.classList.add('was-validated');
+      return form.checkValidity();
     }
   }
-}
+};
 </script>

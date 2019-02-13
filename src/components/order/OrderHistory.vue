@@ -32,48 +32,48 @@
 </template>
 
 <script>
-import Page from '@/components/page/Page'
-import ErrorAlert from '@/components/utilities/Error'
+import Page from '@/components/page/Page';
+import ErrorAlert from '@/components/utilities/Error';
 
-import currency from '@/currency'
+import currency from '@/currency';
 
 export default {
   components: { Page, ErrorAlert },
   mounted: function () {
-    this.loadOrders()
+    this.loadOrders();
   },
   data: function () {
     return {
       orders: [],
       error: null,
       loading: false
-    }
+    };
   },
   methods: {
     loadOrders: function () {
-      this.loading = true
+      this.loading = true;
 
-      this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.auth.token}`
+      this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.auth.token}`;
       this.$api.orders.get('').then((response) => {
-        this.loading = false
-        this.orders = response.data.sort((first, second) => second.id - first.id)
+        this.loading = false;
+        this.orders = response.data.sort((first, second) => second.id - first.id);
       }).catch((error) => {
-        this.loading = false
+        this.loading = false;
         if (error.response && error.response.data) {
-          this.error = new Error(error.response.data.reason)
+          this.error = new Error(error.response.data.reason);
         } else {
-          this.error = new Error('Failed to fetch order history')
+          this.error = new Error('Failed to fetch order history');
         }
-      })
+      });
     },
     totalPrice: function (order) {
-      var prices = this.orders.map((order) => currency.getPrice(order.prices))
-      var cents = prices.reduce((result, price) => result + price.cents, 0)
+      var prices = this.orders.map((order) => currency.getPrice(order.prices));
+      var cents = prices.reduce((result, price) => result + price.cents, 0);
       return currency.formatPrice({
         cents: cents,
         currency: prices[0].currency
-      })
+      });
     }
   }
-}
+};
 </script>

@@ -48,10 +48,10 @@
 </template>
 
 <script>
-import Page from '@/components/page/Page'
-import CategoryNav from '@/components/page/CategoryNav'
+import Page from '@/components/page/Page';
+import CategoryNav from '@/components/page/CategoryNav';
 
-import Product from '@/objects/Product'
+import Product from '@/objects/Product';
 
 export default {
   components: { Page, CategoryNav },
@@ -61,56 +61,56 @@ export default {
       error: null,
       loading: true,
       productCount: 1
-    }
+    };
   },
   created: function () {
-    let sku = this.$route.params.product
+    let sku = this.$route.params.product;
     if (this.product.sku === sku) {
-      this.loading = false
-      this.populate()
+      this.loading = false;
+      this.populate();
 
-      return
+      return;
     }
 
     this.$api.products.get(`?sku=${sku}`).then((response) => {
-      this.product = Product.create(response.data.products[0])
-      this.populate()
+      this.product = Product.create(response.data.products[0]);
+      this.populate();
 
-      this.loading = false
+      this.loading = false;
     }).catch((error) => {
-      this.loading = false
+      this.loading = false;
       if (error.response && error.response.data) {
-        this.error = new Error(error.response.data.reason)
+        this.error = new Error(error.response.data.reason);
       } else {
-        this.error = error
+        this.error = error;
       }
-    })
+    });
   },
   methods: {
     populate: function () {
-      let manufacturer = this.product.attributes.filter((attr) => attr.name === 'manufacturer')[0]
+      let manufacturer = this.product.attributes.filter((attr) => attr.name === 'manufacturer')[0];
       if (manufacturer) {
-        this.manufacturer = manufacturer.value
+        this.manufacturer = manufacturer.value;
       }
     },
     addToCart: function () {
-      $('#add-to-cart').hide()
-      $('#added-to-cart').show()
+      $('#add-to-cart').hide();
+      $('#added-to-cart').show();
 
       let cartProduct = {
         count: parseInt(this.productCount),
         product: this.product
-      }
+      };
 
-      this.$store.commit('cart/add', cartProduct)
+      this.$store.commit('cart/add', cartProduct);
 
       window.setTimeout(() => {
-        $('#add-to-cart').show()
-        $('#added-to-cart').hide()
-      }, 450)
+        $('#add-to-cart').show();
+        $('#added-to-cart').hide();
+      }, 450);
     }
   }
-}
+};
 </script>
 
 <style>

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import NavIcon from '@/components/utilities/NavIcon'
+import NavIcon from '@/components/utilities/NavIcon';
 
 export default {
   components: { NavIcon },
@@ -46,10 +46,10 @@ export default {
 
       cartProductCount: this.$store.state.cart.length,
       authenticated: this.$store.state.auth.isAuthenticated
-    }
+    };
   },
   created () {
-    this.getData()
+    this.getData();
   },
   watch: {
     '$route': 'getData',
@@ -58,32 +58,32 @@ export default {
   methods: {
     getData: function () {
       if (this.$store.state.categories) {
-        this.loading = false
-        this.categories = this.$store.state.categories
-        return
+        this.loading = false;
+        this.categories = this.$store.state.categories;
+        return;
       }
 
       this.$api.products.get('/categories').then((response) => {
-        this.loading = false
-        this.categories = response.data
+        this.loading = false;
+        this.categories = response.data;
 
-        this.$store.commit('categories', response.data)
+        this.$store.commit('categories', response.data);
       }).catch((error) => {
-        this.loading = false
-        this.error = error
-      })
+        this.loading = false;
+        this.error = error;
+      });
     },
     updateCartBadge: function () {
-      this.cartProductCount = this.$store.state.cart.length
+      this.cartProductCount = this.$store.state.cart.length;
     },
     signOut: function () {
-      this.$store.commit('auth/token', null)
-      this.$store.commit('auth/refresh', null)
-      this.$store.commit('auth/authenticated', false)
-      this.authenticated = this.$store.state.auth.isAuthenticated
+      this.$store.commit('auth/token', null);
+      this.$store.commit('auth/refresh', null);
+      this.$store.commit('auth/authenticated', false);
+      this.authenticated = this.$store.state.auth.isAuthenticated;
     }
   }
-}
+};
 </script>
 
 <style>

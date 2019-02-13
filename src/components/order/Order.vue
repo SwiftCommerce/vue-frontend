@@ -56,10 +56,10 @@
 </template>
 
 <script>
-import Page from '@/components/page/Page.vue'
-import Payment from '@/components/order/Payment.vue'
-import ErrorAlert from '@/components/utilities/Error.vue'
-import AddressForm from '@/components/order/AddressForm.vue'
+import Page from '@/components/page/Page.vue';
+import Payment from '@/components/order/Payment.vue';
+import ErrorAlert from '@/components/utilities/Error.vue';
+import AddressForm from '@/components/order/AddressForm.vue';
 
 export default {
   components: { Page, Payment, ErrorAlert, AddressForm },
@@ -71,37 +71,37 @@ export default {
 
       error: null,
       showLoader: this.$route.query.loading === 'true'
-    }
+    };
   },
   methods: {
     imageURL: function (product) {
-      let attribute = product.attributes.filter((attr) => attr.name === 'image')[0]
-      return attribute ? attribute.value || this.defaultImage : this.defaultImage
+      let attribute = product.attributes.filter((attr) => attr.name === 'image')[0];
+      return attribute ? attribute.value || this.defaultImage : this.defaultImage;
     },
 
     billingAddress: function () {
       if (this.useShippingAddress) {
-        return this.$store.state.address.shipping
+        return this.$store.state.address.shipping;
       } else {
-        var address = {}
+        var address = {};
 
         Array.from($('form#address-form')[0]).forEach(function (input) {
-          address[input.name] = input.value
-        })
-        return address
+          address[input.name] = input.value;
+        });
+        return address;
       }
     },
     createOrder: function () {
-      this.showLoader = true
+      this.showLoader = true;
 
       var items = this.$store.state.cart.map(function (item) {
         return {
           productID: item.product.id,
           quantity: item.count
-        }
-      })
+        };
+      });
 
-      var storedShipping = this.$store.state.address.shipping
+      var storedShipping = this.$store.state.address.shipping;
       var shipping = {
         street: storedShipping.address_1,
         street2: storedShipping.address_2,
@@ -109,9 +109,9 @@ export default {
         city: storedShipping.city,
         state: storedShipping.state,
         country: storedShipping.county
-      }
+      };
 
-      var formBilling = this.billingAddress()
+      var formBilling = this.billingAddress();
       var billing = {
         street: formBilling.address_1,
         street2: formBilling.address_2,
@@ -119,7 +119,7 @@ export default {
         city: formBilling.city,
         state: formBilling.state,
         country: formBilling.county
-      }
+      };
 
       var body = {
         firstname: formBilling.firstname,
@@ -132,44 +132,44 @@ export default {
           billing: billing
         },
         items: items
-      }
+      };
 
       if (this.$store.state.auth.token) {
-        this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.auth.token}`
+        this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.auth.token}`;
       }
 
       this.$api.orders.post('', body).then((response) => {
-        this.$store.commit('auth/token', response.data.authToken)
-        this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${response.data.authToken}`
-        this.$api.orders.defaults.headers.common['Content-Type'] = `application/json; charset=utf-8`
+        this.$store.commit('auth/token', response.data.authToken);
+        this.$api.orders.defaults.headers.common['Authorization'] = `Bearer ${response.data.authToken}`;
+        this.$api.orders.defaults.headers.common['Content-Type'] = `application/json; charset=utf-8`;
 
-        return this.$refs.payment.createPayment(response.data.id)
+        return this.$refs.payment.createPayment(response.data.id);
       }).catch((error) => {
-        this.error = error
-        this.showLoader = false
-      })
+        this.error = error;
+        this.showLoader = false;
+      });
     },
 
     paymentSucceeded: function () {
-      this.$store.commit('cart/empty')
-      this.$router.push({ name: 'OrderSuccess' })
+      this.$store.commit('cart/empty');
+      this.$router.push({ name: 'OrderSuccess' });
     },
     paymentFailed: function (error) {
       if (error && error.response && error.response.data) {
         if (error.response.data.message) {
-          this.error = new Error(error.response.data.message)
+          this.error = new Error(error.response.data.message);
         } else if (error.response.data.reason) {
-          this.error = new Error(error.response.data.reason)
+          this.error = new Error(error.response.data.reason);
         } else {
-          this.error = error
+          this.error = error;
         }
       } else {
-        this.error = error
+        this.error = error;
       }
-      this.showLoader = false
+      this.showLoader = false;
     }
   }
-}
+};
 </script>
 
 <style>

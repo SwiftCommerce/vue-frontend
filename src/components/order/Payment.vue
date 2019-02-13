@@ -39,47 +39,47 @@
 </template>
 
 <script>
-import PayPal from '@/components/order/payment/PayPal.vue'
-import Stripe from '@/components/order/payment/Stripe.vue'
+import PayPal from '@/components/order/payment/PayPal.vue';
+import Stripe from '@/components/order/payment/Stripe.vue';
 
 export default {
   components: { PayPal, Stripe },
   methods: {
     createPayment: function (orderID) {
-      var method
-      var error
+      var method;
+      var error;
 
-      var paymentDiv = $('div.collapse.show').parents()[0]
+      var paymentDiv = $('div.collapse.show').parents()[0];
       if (paymentDiv) {
-        method = this.$refs[paymentDiv.id].createPayment
+        method = this.$refs[paymentDiv.id].createPayment;
       } else {
-        error = new Error('No valid payment method selected.')
+        error = new Error('No valid payment method selected.');
       }
 
       return new Promise((resolve, reject) => {
         if (method) {
-          method(orderID)
-          resolve()
+          method(orderID);
+          resolve();
         } else if (error) {
-          reject(error)
+          reject(error);
         } else {
-          reject(new Error('No valid payment method selected.'))
+          reject(new Error('No valid payment method selected.'));
         }
-      })
+      });
     },
 
     select: function (id) {
-      $('.collapse').not(`#collapse-${id}`).collapse('hide')
-      $('div.card-header>span.icon').addClass('d-none')
+      $('.collapse').not(`#collapse-${id}`).collapse('hide');
+      $('div.card-header>span.icon').addClass('d-none');
 
       // We check to see if the element does _not_ have the `show` class because it is delayed in being
       // added and removed, which means if it has the class, the card collapse is closing.
       if (!$(`#collapse-${id}`).hasClass('show')) {
-        $(`#${id}-heading>span.icon`).removeClass('d-none')
+        $(`#${id}-heading>span.icon`).removeClass('d-none');
       }
     }
   }
-}
+};
 </script>
 
 <style>

@@ -3,23 +3,23 @@ export default {
   state: [],
   mutations: {
     add (state, item) {
-      var index = state.findIndex((i) => i.product.sku === item.product.sku)
+      var index = state.findIndex((i) => i.product.sku === item.product.sku);
       if (index >= 0) {
-        state[index].count += item.count
+        state[index].count += item.count;
       } else {
-        state.push(item)
+        state.push(item);
       }
     },
     remove (state, sku) {
-      var index = state.findIndex((item) => item.product.sku === sku)
-      state.splice(index, 1)
+      var index = state.findIndex((item) => item.product.sku === sku);
+      state.splice(index, 1);
     },
     itemCount (state, item) {
-      var index = state.findIndex((i) => i.product.sku === item.product.sku)
-      state[index].count = item.count
+      var index = state.findIndex((i) => i.product.sku === item.product.sku);
+      state[index].count = item.count;
     },
     empty (state) {
-      state.length = 0
+      state.length = 0;
     }
   }
-}
+};

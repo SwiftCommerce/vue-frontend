@@ -45,9 +45,9 @@
 </template>
 
 <script>
-import Page from '@/components/page/Page'
-import CategoryNav from '@/components/page/CategoryNav'
-import BootstrapModel from '@/components/utilities/BootstrapModel'
+import Page from '@/components/page/Page';
+import CategoryNav from '@/components/page/CategoryNav';
+import BootstrapModel from '@/components/utilities/BootstrapModel';
 
 export default {
   components: { Page, CategoryNav, BootstrapModel },
@@ -55,24 +55,24 @@ export default {
     return {
       deleteProduct: { name: null },
       defaultImage: require('@/assets/fa-image.png')
-    }
+    };
   },
   methods: {
     imageURL: function (product) {
-      return product.attributes.filter((attr) => attr.name === 'image')[0] || this.defaultImage
+      return product.attributes.filter((attr) => attr.name === 'image')[0] || this.defaultImage;
     },
     updateProductCount: function (item, count) {
-      item.count = parseInt(count)
-      this.$store.commit('cart/itemCount', item)
+      item.count = parseInt(count);
+      this.$store.commit('cart/itemCount', item);
     },
     setDelete: function (item) {
-      this.deleteProduct = item.product
+      this.deleteProduct = item.product;
     },
     deleteItem: function () {
-      this.$store.commit('cart/remove', this.deleteProduct.sku)
+      this.$store.commit('cart/remove', this.deleteProduct.sku);
     }
   }
-}
+};
 </script>
 
 <style>

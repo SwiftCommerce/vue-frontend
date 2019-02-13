@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import VueHeader from './VueHeader.vue'
-import VueFooter from './VueFooter.vue'
+import VueHeader from './VueHeader.vue';
+import VueFooter from './VueFooter.vue';
 
 export default {
   components: { VueHeader, VueFooter },
@@ -19,20 +19,20 @@ export default {
       type: String
     }
   },
-  mounted: function () { this.setTitle() },
+  mounted: function () { this.setTitle(); },
   watch: {
-    title: function () { this.setTitle() }
+    title: function () { this.setTitle(); }
   },
   methods: {
     setTitle: function () {
       if (this.title) {
-        document.title = `SwiftCommerce | ${this.title}`
+        document.title = `SwiftCommerce | ${this.title}`;
       } else {
-        document.title = 'SwiftCommerce'
+        document.title = 'SwiftCommerce';
       }
     }
   }
-}
+};
 </script>
 
 <style>
