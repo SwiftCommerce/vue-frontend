@@ -15,13 +15,13 @@
     </div>
     <div v-if="product && !loading" class="row">
       <div id="image" class="col-12 col-lg-6">
-        <img :src="imgaeURL()" />
+        <img :src="product.imageURL" />
       </div>
       <div id="product-modifications" class="col-12 col-lg-6">
         <div id="product-info" class="row">
           <h5 id="name" class="col-8">{{ product.name }}</h5>
-          <h5 id="price" class="col-4 text-right">{{ price || 'Not for Sale' }}</h5>
-          <p v-if="manufacturer" class="col-12"> by {{ manufacturer }}</p>
+          <h5 id="price" class="col-4 text-right">{{ product.price || 'Not for Sale' }}</h5>
+          <p v-if="product.manufacturer" class="col-12"> by {{ product.manufacturer }}</p>
           <hr class="col-12"/>
           <p class="col-12">{{ product.description }}</p>
         </div>
@@ -34,7 +34,7 @@
           </div>
           <div class="col-12">
             <span>
-              <button v-if="price && productCount > 0" id="add-to-cart" type="button" class="btn btn-primary" @click="addToCart()">Add to Cart</button>
+              <button v-if="product.price && productCount > 0" id="add-to-cart" type="button" class="btn btn-primary" @click="addToCart()">Add to Cart</button>
               <button v-else type="button" class="btn btn-primary" disabled>Add to Cart</button>
 
               <font-awesome id="added-to-cart" class="text-success" style="display: none;" icon="check" />
@@ -51,19 +51,16 @@
 import Page from '@/components/page/Page'
 import CategoryNav from '@/components/page/CategoryNav'
 
-import currency from '@/currency'
+import Product from '@/objects/Product'
 
 export default {
   components: { Page, CategoryNav },
   data: function () {
     return {
-      product: this.$store.state.product,
+      product: this.$store.state.product ? Product.create(this.$store.state.product) : {},
       error: null,
       loading: true,
-      productCount: 1,
-
-      price: null,
-      manufacturer: null
+      productCount: 1
     }
   },
   created: function () {
@@ -76,7 +73,7 @@ export default {
     }
 
     this.$api.products.get(`?sku=${sku}`).then((response) => {
-      this.product = response.data.products[0]
+      this.product = Product.create(response.data.products[0])
       this.populate()
 
       this.loading = false
@@ -91,23 +88,10 @@ export default {
   },
   methods: {
     populate: function () {
-      this.price = this.getPrice()
-
       let manufacturer = this.product.attributes.filter((attr) => attr.name === 'manufacturer')[0]
       if (manufacturer) {
         this.manufacturer = manufacturer.value
       }
-    },
-    imgaeURL: function () {
-      return this.product.attributes.filter((attr) => attr.name === 'image')[0] || require('@/assets/fa-image.png')
-    },
-    getPrice: function () {
-      if (!this.product) { return }
-
-      let price = currency.getPrice(this.product.prices)
-      if (!price) { return undefined }
-
-      return currency.formatPrice(price)
     },
     addToCart: function () {
       /* eslint-disable no-undef */
