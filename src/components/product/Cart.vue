@@ -22,7 +22,7 @@
     <div class="list-group list-group-flush">
       <div v-for="item in $store.state.cart" :key="item.product.sku" class="list-group-item row">
         <div class="col-3 product-image-container">
-            <img :src="imageURL(item.product)" class="product-image">
+            <img :src="product.create(item.product).imageURL" class="product-image">
           </div>
         <div class="col-6 product-description">
           <h5>{{ item.product.name }}</h5>
@@ -54,13 +54,10 @@ export default {
   data: function () {
     return {
       deleteProduct: { name: null },
-      defaultImage: require('@/assets/fa-image.png')
+      product: require('@/objects/Product').default
     };
   },
   methods: {
-    imageURL: function (product) {
-      return product.attributes.filter((attr) => attr.name === 'image')[0] || this.defaultImage;
-    },
     updateProductCount: function (item, count) {
       item.count = parseInt(count);
       this.$store.commit('cart/itemCount', item);

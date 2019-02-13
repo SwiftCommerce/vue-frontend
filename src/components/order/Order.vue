@@ -42,7 +42,7 @@
         <ul class="list-group">
           <li v-for="item in $store.state.cart" :key="item.product.sku" class="order-cart-item row list-group-item">
             <div class="col-3 product-image-container">
-              <img class="product-image" :src="imageURL(item.product)" />
+              <img class="product-image" :src="product.create(item.product).imageURL" />
             </div>
             <div class="col-9 product-information">
               <p class="produc-name">{{ item.product.name }}</p>
@@ -67,18 +67,13 @@ export default {
     return {
       useShippingAddress: true,
       orderComment: null,
-      defaultImage: require('@/assets/fa-image.png'),
 
+      product: require('@/objects/Product').default,
       error: null,
       showLoader: this.$route.query.loading === 'true'
     };
   },
   methods: {
-    imageURL: function (product) {
-      let attribute = product.attributes.filter((attr) => attr.name === 'image')[0];
-      return attribute ? attribute.value || this.defaultImage : this.defaultImage;
-    },
-
     billingAddress: function () {
       if (this.useShippingAddress) {
         return this.$store.state.address.shipping;
