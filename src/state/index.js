@@ -13,7 +13,7 @@ export default new Vuex.Store({
   state: {
     orderID: null,
     categories: null,
-    product: {}
+    product: null
   },
   mutations: {
     orderID (state, id) {
