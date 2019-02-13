@@ -1,5 +1,5 @@
 <template>
-  <page name="Home">
+  <page>
     <category-nav></category-nav>
     <h1 id="greeting">{{ msg }}</h1>
   </page>

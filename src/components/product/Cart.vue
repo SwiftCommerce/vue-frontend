@@ -1,5 +1,5 @@
 <template>
-  <page name="Cart">
+  <page>
     <category-nav></category-nav>
 
     <bootstrap-model title="Remove Item" accept-title="Confirm" @accepted="deleteItem()">

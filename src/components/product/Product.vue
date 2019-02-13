@@ -1,5 +1,5 @@
 <template>
-  <page name="Food">
+  <page>
     <category-nav></category-nav>
 
     <div v-if="loading">

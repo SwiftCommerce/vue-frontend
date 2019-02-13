@@ -1,5 +1,5 @@
 <template>
-  <page name="Shipping">
+  <page>
     <address-form next="Order" state-mutation="address/shipping"></address-form>
   </page>
 </template>

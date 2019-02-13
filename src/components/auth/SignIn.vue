@@ -1,5 +1,5 @@
 <template>
-  <page name="Sign In">
+  <page>
     <error-alert :watch="error" />
 
     <form id="signin-form" class="needs-validation" novalidate>

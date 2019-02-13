@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vue-header>{{ name }}</vue-header>
+    <vue-header></vue-header>
     <div id="page" class="container">
       <slot></slot>
     </div>
@@ -13,12 +13,6 @@ import VueHeader from './VueHeader.vue'
 import VueFooter from './VueFooter.vue'
 
 export default {
-  components: { VueHeader, VueFooter },
-  props: {
-    name: {
-      type: String,
-      required: true
-    }
-  }
+  components: { VueHeader, VueFooter }
 }
 </script>
