@@ -115,6 +115,7 @@ export default {
     }
   },
   watch: {
+    'filters': 'loadProducts',
     'sortDirection': function (value) { this.watch('sortDirection', value) },
     'sortBy': function (value) { this.watch('sortBy', value) },
     'page': function (value) { this.watch('page', value) },
