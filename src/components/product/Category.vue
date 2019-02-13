@@ -1,5 +1,5 @@
 <template>
-  <page :name="pageName">
+  <page :title="pageName">
     <category-nav></category-nav>
     <div>
       <product-list :filters="`categories[]=${this.$route.params.category.toLowerCase()}`"></product-list>
