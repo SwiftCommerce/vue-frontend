@@ -1,28 +1,35 @@
 <template>
   <div id="products">
-    <div id="sort">
-      <div id="sortBy" class="d-inline">
-        Sort By:
-        <div class="btn-group btn-group-sm" role="group" aria-label="Sort by">
-          <button type="button" class="btn btn-outline-secondary sort-action" value="name">Name</button>
-          <button type="button" class="btn btn-outline-secondary sort-action" value="price">Price</button>
-          <button type="button" class="btn btn-outline-secondary sort-action" value="category">Category</button>
-        </div>
+    <div id="sort" class="navbar-expand-lg">
+      <div id="sort-menu" class="navbar-expand-lg navbar-light pb-3">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sort-actions" aria-controls="sort-actions" aria-expanded="false" aria-label="Toggle sort actions">
+          <span class="navbar-toggler-icon"></span>
+        </button>
       </div>
-      <div id="sortDirection" class="d-inline">
-        Sort Direction:
-        <div class="btn-group btn-group-sm" role="group" aria-label="Sort by">
-          <button type="button" class="btn btn-outline-secondary sort-action" value="ascending">Ascending</button>
-          <button type="button" class="btn btn-outline-secondary sort-action" value="descending">Descending</button>
+      <div id="sort-actions" class="collapse navbar-collapse row">
+        <div id="sortBy" class="d-lg-inline pb-2 col-12 col-lg-auto">
+          Sort By:
+          <div class="btn-group btn-group-sm" role="group" aria-label="Sort by">
+            <button type="button" class="btn btn-outline-secondary sort-action" value="name">Name</button>
+            <button type="button" class="btn btn-outline-secondary sort-action" value="price">Price</button>
+            <button type="button" class="btn btn-outline-secondary sort-action" value="category">Category</button>
+          </div>
         </div>
-      </div>
-      <div id="pageSize" class="d-inline">
-        Products per Page:
-        <div class="btn-group btn-group-sm" role="group" aria-label="Sort by">
-          <button type="button" class="btn btn-outline-secondary sort-action" value=10>10</button>
-          <button type="button" class="btn btn-outline-secondary sort-action" value=25>25</button>
-          <button type="button" class="btn btn-outline-secondary sort-action" value=50>50</button>
-          <button type="button" class="btn btn-outline-secondary sort-action" value=100>100</button>
+        <div id="sortDirection" class="d-lg-inline pb-2 col-12 col-lg-auto">
+          Sort Direction:
+          <div class="btn-group btn-group-sm" role="group" aria-label="Sort by">
+            <button type="button" class="btn btn-outline-secondary sort-action" value="ascending">Ascending</button>
+            <button type="button" class="btn btn-outline-secondary sort-action" value="descending">Descending</button>
+          </div>
+        </div>
+        <div id="pageSize" class="d-lg-inline pb-2 col-12 col-lg-auto">
+          Products per Page:
+          <div class="btn-group btn-group-sm" role="group" aria-label="Sort by">
+            <button type="button" class="btn btn-outline-secondary sort-action" value=10>10</button>
+            <button type="button" class="btn btn-outline-secondary sort-action" value=25>25</button>
+            <button type="button" class="btn btn-outline-secondary sort-action" value=50>50</button>
+            <button type="button" class="btn btn-outline-secondary sort-action" value=100>100</button>
+          </div>
         </div>
       </div>
     </div>
