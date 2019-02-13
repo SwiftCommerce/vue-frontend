@@ -157,7 +157,8 @@ export default {
   },
   methods: {
     imageURL: function (product) {
-      return product.attributes.filter((attr) => attr.name === 'image')[0] || this.defaultImage
+      var attribute = product.attributes.filter((attr) => attr.name === 'image')[0]
+      return attribute ? attribute.value || this.defaultImage : this.defaultImage
     },
     watch: function (property, value) {
       query[property] = value
