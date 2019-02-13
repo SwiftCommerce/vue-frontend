@@ -51,10 +51,10 @@
         @click.native="setProduct(product)"
         class="product list-group-item list-group-item-action"
       >
-        <div class="col-3 product-image-container">
-          <img :src="imageURL(product)" class="product-image">
+        <div class="col-lg-3 col-sm-6 col-12 product-image-container">
+          <img :src="imageURL(product)" class="product-image mx-auto mx-sm-0 d-block">
         </div>
-        <div class="col-9 product-description">
+        <div class="col-lg-9 col-sm-6 col-12 product-description">
           <h5>{{ product.name }}</h5>
           <p>{{ product.description }}</p>
         </div>
