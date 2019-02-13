@@ -1,5 +1,5 @@
 <template>
-  <page>
+  <page :title="product.name">
     <category-nav></category-nav>
 
     <div v-if="loading">
