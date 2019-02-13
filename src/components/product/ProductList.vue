@@ -59,7 +59,7 @@
         class="product list-group-item list-group-item-action"
       >
         <div class="col-lg-3 col-sm-6 col-12 product-image-container">
-          <img :src="imageURL(product)" class="product-image mx-auto mx-sm-0 d-block">
+          <img :src="product.imageURL" class="product-image mx-auto mx-sm-0 d-block">
         </div>
         <div class="col-lg-9 col-sm-6 col-12 product-description">
           <h5>{{ product.name }}</h5>
@@ -84,6 +84,7 @@
 
 <script>
 import query from '@/query'
+import Product from '@/objects/Product'
 import ErrorAlert from '@/components/utilities/Error.vue'
 
 export default {
@@ -115,7 +116,6 @@ export default {
 
       products: [],
       productCount: 0,
-      defaultImage: require('@/assets/fa-image.png'),
 
       loading: true,
       error: null
@@ -156,10 +156,6 @@ export default {
     }
   },
   methods: {
-    imageURL: function (product) {
-      var attribute = product.attributes.filter((attr) => attr.name === 'image')[0]
-      return attribute ? attribute.value || this.defaultImage : this.defaultImage
-    },
     watch: function (property, value) {
       query[property] = value
       this.loadProducts()
@@ -178,7 +174,7 @@ export default {
       }
 
       this.$api.products(`?${query}`).then((response) => {
-        this.products = response.data.products
+        this.products = response.data.products.map(Product.create)
         this.productCount = response.data.count
 
         this.loading = false
