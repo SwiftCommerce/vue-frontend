@@ -33,7 +33,6 @@ export default {
         if (this.stateMutation) {
           var data = {}
 
-          /* eslint-disable no-undef */
           Array.from($('form#address-form')[0]).forEach(function (input) {
             data[input.name] = input.value
           })

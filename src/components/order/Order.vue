@@ -85,9 +85,8 @@ export default {
       } else {
         var address = {}
 
-        /* eslint-disable no-undef */
         Array.from($('form#address-form')[0]).forEach(function (input) {
-          data[input.name] = input.value
+          address[input.name] = input.value
         })
         return address
       }

@@ -97,7 +97,6 @@ export default {
   mounted: function () {
     this.loadProducts()
 
-    /* eslint-disable no-undef */
     $('button.sort-action').click((event) => {
       var button = $(event.target)
       window.button = button

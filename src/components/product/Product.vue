@@ -94,7 +94,6 @@ export default {
       }
     },
     addToCart: function () {
-      /* eslint-disable no-undef */
       $('#add-to-cart').hide()
       $('#added-to-cart').show()
 

@@ -30,7 +30,6 @@ export default {
     }
   },
   beforeDestroy: function () {
-    /* eslint-disable no-undef */
     $('body>div.popover.show').remove()
   },
   methods: {

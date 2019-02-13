@@ -49,7 +49,6 @@ export default {
       var method
       var error
 
-      /* eslint-disable no-undef */
       var paymentDiv = $('div.collapse.show').parents()[0]
       if (paymentDiv) {
         method = this.$refs[paymentDiv.id].createPayment
