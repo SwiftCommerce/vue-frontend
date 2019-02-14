@@ -55,7 +55,8 @@
         v-for="product in products"
         :key="product.sku"
         :to="{ name: 'Product', params: { product: product.sku}}"
-        @click.native="setProduct(product)"
+        @click.native="redirect(product)"
+        event="false"
         class="product list-group-item list-group-item-action"
       >
         <div class="col-lg-3 col-sm-6 col-12 product-image-container">
@@ -159,9 +160,9 @@ export default {
       query[property] = value;
       this.loadProducts();
     },
-
-    setProduct: function (product) {
-      this.$store.commit('product', product);
+    redirect: function (product) {
+      this.$store.commit('product', product.raw);
+      this.$router.push({name: 'Product', params: {product: product.sku}});
     },
     loadProducts: function () {
       this.loading = true;

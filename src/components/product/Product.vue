@@ -57,25 +57,21 @@ export default {
   components: { Page, CategoryNav },
   data: function () {
     return {
-      product: this.$store.state.product ? Product.create(this.$store.state.product) : {},
       error: null,
       loading: true,
-      productCount: 1
+      productCount: 1,
+      product: this.$store.state.product
     };
   },
   created: function () {
-    let sku = this.$route.params.product;
-    if (this.product.sku === sku) {
+    if (this.product) {
       this.loading = false;
-      this.populate();
-
+      this.product = Product.create(this.$store.state.product);
       return;
     }
 
-    this.$api.products.get(`?sku=${sku}`).then((response) => {
+    this.$api.products.get(`?sku=${this.$route.params.product}`).then((response) => {
       this.product = Product.create(response.data.products[0]);
-      this.populate();
-
       this.loading = false;
     }).catch((error) => {
       this.loading = false;
