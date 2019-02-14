@@ -30,6 +30,8 @@ export default {
     return validPrices.sort(function (first, second) { return new Date(first.activeFrom) >= new Date(second.activeFrom); }).pop();
   },
   formatPrice: function (price) {
+    if (!price) { return null; }
+
     let string = price.cents.toString();
 
     let locale = window.navigator.language;
