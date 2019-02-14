@@ -87,19 +87,13 @@ export default {
     });
   },
   methods: {
-    populate: function () {
-      let manufacturer = this.product.attributes.filter((attr) => attr.name === 'manufacturer')[0];
-      if (manufacturer) {
-        this.manufacturer = manufacturer.value;
-      }
-    },
     addToCart: function () {
       $('#add-to-cart').hide();
       $('#added-to-cart').show();
 
       let cartProduct = {
         count: parseInt(this.productCount),
-        product: this.product
+        product: this.product.raw
       };
 
       this.$store.commit('cart/add', cartProduct);

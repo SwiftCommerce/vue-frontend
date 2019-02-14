@@ -3,6 +3,7 @@ import currency from '@/currency';
 export default {
   create: function (object) {
     var product = Object.create(object);
+    product.raw = object;
 
     product.attribute = function (name, def = null) {
       return (this.attributes.filter((attr) => attr.name === name)[0] || {}).value || def;
