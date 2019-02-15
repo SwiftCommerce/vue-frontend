@@ -11,7 +11,10 @@ import {
   faAngleLeft,
   faTrashAlt,
   faHistory,
-  faCheck
+  faTimes,
+  faCheck,
+  faBars,
+  faSort
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faAngleDoubleRight);
@@ -23,6 +26,9 @@ library.add(faAngleRight);
 library.add(faAngleLeft);
 library.add(faTrashAlt);
 library.add(faHistory);
+library.add(faTimes);
 library.add(faCheck);
+library.add(faBars);
+library.add(faSort);
 
 export default FontAwesomeIcon;
