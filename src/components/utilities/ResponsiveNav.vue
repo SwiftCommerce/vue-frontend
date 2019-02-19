@@ -78,10 +78,6 @@ export default {
   .menu-section:nth-child(2) {
     justify-content: flex-start;
   }
-
-  .menu-item {
-    display: inline-block;
-  }
 }
 
 @media (max-width: 991px) {
@@ -126,10 +122,9 @@ export default {
 
   .menu-item {
     font-size: 1.1em;
-    margin-bottom: 0.25em;
   }
 
-  .open {
+  .sidebar-menu.open {
     max-width: 100%;
     transition: max-width 0.5s ease-out;
   }
