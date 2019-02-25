@@ -1,13 +1,8 @@
 <template>
   <div id="products">
-    <div id="sort" class="navbar-expand-lg">
-      <div id="sort-menu" class="navbar-expand-lg navbar-light pb-3">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sort-actions" aria-controls="sort-actions" aria-expanded="false" aria-label="Toggle sort actions">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-      <div id="sort-actions" class="collapse navbar-collapse row">
-        <div id="sortBy" class="d-lg-inline pb-2 col-12 col-lg-auto">
+    <responsive-nav class="right" open-icon="sort">
+      <div id="sort-actions" class="menu-section row">
+        <div id="sortBy" class="d-lg-inline pb-2 col-12 col-lg-auto menu-item">
           Sort By:
           <div class="btn-group btn-group-sm" role="group" aria-label="Sort by">
             <button type="button" class="btn btn-outline-secondary sort-action" value="name">Name</button>
@@ -15,14 +10,14 @@
             <button type="button" class="btn btn-outline-secondary sort-action" value="category">Category</button>
           </div>
         </div>
-        <div id="sortDirection" class="d-lg-inline pb-2 col-12 col-lg-auto">
+        <div id="sortDirection" class="d-lg-inline pb-2 col-12 col-lg-auto menu-item">
           Sort Direction:
           <div class="btn-group btn-group-sm" role="group" aria-label="Sort by">
             <button type="button" class="btn btn-outline-secondary sort-action" value="ascending">Ascending</button>
             <button type="button" class="btn btn-outline-secondary sort-action" value="descending">Descending</button>
           </div>
         </div>
-        <div id="pageSize" class="d-lg-inline pb-2 col-12 col-lg-auto">
+        <div id="pageSize" class="d-lg-inline pb-2 col-12 col-lg-auto menu-item">
           Products per Page:
           <div class="btn-group btn-group-sm" role="group" aria-label="Sort by">
             <button type="button" class="btn btn-outline-secondary sort-action" value=10>10</button>
@@ -32,7 +27,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </responsive-nav>
 
     <error-alert :watch="error"></error-alert>
 
@@ -86,10 +81,11 @@
 <script>
 import query from '@/query';
 import Product from '@/objects/Product';
-import ErrorAlert from '@/components/utilities/Error.vue';
+import ErrorAlert from '@/components/utilities/Error';
+import ResponsiveNav from '@/components/nav/ResponsiveNav';
 
 export default {
-  components: { ErrorAlert },
+  components: { ErrorAlert, ResponsiveNav },
   props: {
     filters: {
       type: String
