@@ -7,7 +7,7 @@
 
 <script>
 import Page from '@/components/page/Page.vue';
-import CategoryNav from '@/components/page/CategoryNav.vue';
+import CategoryNav from '@/components/nav/CategoryNav.vue';
 
 export default {
   name: 'HelloWorld',

@@ -49,7 +49,7 @@
 
 <script>
 import Page from '@/components/page/Page';
-import CategoryNav from '@/components/page/CategoryNav';
+import CategoryNav from '@/components/nav/CategoryNav';
 
 import Product from '@/objects/Product';
 

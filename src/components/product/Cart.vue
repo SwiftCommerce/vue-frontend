@@ -46,7 +46,7 @@
 
 <script>
 import Page from '@/components/page/Page';
-import CategoryNav from '@/components/page/CategoryNav';
+import CategoryNav from '@/components/nav/CategoryNav';
 import BootstrapModel from '@/components/utilities/BootstrapModel';
 
 export default {
