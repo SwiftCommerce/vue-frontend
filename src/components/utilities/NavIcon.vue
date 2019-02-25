@@ -1,7 +1,7 @@
 <template>
   <router-link class="nav-icon" :to="{ name: link }">
     <font-awesome
-      class="action-icon"
+      class="action-icon mt-3 mt-lg-2 ml-3"
       :icon="icon"
       :data-toggle="popover ? 'popover' : false"
       :data-placement="popover ? 'top': false"
@@ -10,6 +10,7 @@
       @mouseout="hidePopover"
     />
     <span v-if="badge != null" class="action-badge badge badge-primary badge-pill">{{ badge }}</span>
+    <span v-if="popover" class="action-icon-label d-lg-none">{{ popover }}</span>
   </router-link>
 </template>
 
@@ -48,7 +49,7 @@ export default {
 </script>
 
 <style>
-#actions > a:hover {
+.nav-icon:hover {
   text-decoration: none;
 }
 
