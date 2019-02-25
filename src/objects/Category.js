@@ -3,8 +3,8 @@ export default {
     var category = Object.create(object);
     category.raw = object;
 
-    Object.defineProperty(category, 'hasSubCategories', {
-      value: (category.subcategories || []).length > 0,
+    Object.defineProperty(category, 'subs', {
+      value: category.subcategories || [],
       writable: false
     });
 
