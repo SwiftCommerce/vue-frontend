@@ -1,6 +1,6 @@
 <template>
-  <sub-menu v-if="(data.subs || []).length > 0" :title="data.name" :href="`/#/categories/${data.name}`">
-    <nav-component v-for="sub in data.subs" :key="sub.name" :data="sub"></nav-component>
+  <sub-menu v-if="(data[subsName] || []).length > 0" :title="data.name" :href="`/#/categories/${data.name}`">
+    <nav-component v-for="sub in data[subsName]" :key="sub.name" :data="sub" :subs-name="subsName"></nav-component>
   </sub-menu>
 
   <nav-icon v-else-if="data.icon" :link="data.link" :icon="data.icon" :badge="data.badge" :popover="data.popover"></nav-icon>
@@ -21,6 +21,9 @@ export default {
     data: {
       type: Object,
       required: true
+    },
+    subsName: {
+      type: String
     }
   }
 };

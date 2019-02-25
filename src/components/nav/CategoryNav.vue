@@ -13,7 +13,7 @@
     <div v-if="categories" id="categories">
       <responsive-nav class="primary left">
         <div class="menu-section">
-          <nav-component v-for="category in categories" :key="category.name" :data="category"></nav-component>
+          <nav-component v-for="category in categories" :key="category.name" :data="category" subs-name="subcategories"></nav-component>
         </div>
         <div class="menu-section">
           <nav-component :data="{icon: 'shopping-cart', link: 'Cart', badge: cartProductCount}"></nav-component>
@@ -34,7 +34,6 @@
 <script>
 import ResponsiveNav from '@/components/nav/ResponsiveNav';
 import NavComponent from '@/components/nav/NavComponent.vue';
-import Category from '@/objects/Category';
 
 export default {
   components: { ResponsiveNav, NavComponent },
@@ -59,13 +58,13 @@ export default {
     getData: function () {
       if (this.$store.state.categories) {
         this.loading = false;
-        this.categories = this.$store.state.categories.map(Category.create);
+        this.categories = this.$store.state.categories;
         return;
       }
 
       this.$api.products.get('/categories').then((response) => {
         this.loading = false;
-        this.categories = response.data.map(Category.create);
+        this.categories = response.data;
 
         this.$store.commit('categories', response.data);
       }).catch((error) => {
