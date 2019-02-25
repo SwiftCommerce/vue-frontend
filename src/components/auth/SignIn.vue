@@ -1,8 +1,8 @@
 <template>
-  <page>
+  <page title="Sign In">
     <error-alert :watch="error" />
 
-    <form id="signin-form" class="needs-validation" novalidate>
+    <form id="signin-form" class="needs-validation mt-3" novalidate>
       <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required/>
@@ -22,6 +22,10 @@
         Submit
       </button>
     </form>
+    
+    <div class="mt-3 text-center">
+      <p>Don't have an account? <router-link :to="{ name: 'SignUp'}">Sign Up!</router-link></p>
+    </div>
   </page>
 </template>
 
