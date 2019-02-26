@@ -22,7 +22,7 @@
         Submit
       </button>
     </form>
-    
+
     <div class="mt-3 text-center">
       <p>Don't have an account? <router-link :to="{ name: 'SignUp'}">Sign Up!</router-link></p>
     </div>
