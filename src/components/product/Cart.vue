@@ -14,20 +14,20 @@
       </div>
     </div>
     <div v-else class="row">
-      <div class="alert alert-warning" role="alert">
+      <div class="col-12 alert alert-warning" role="alert">
         <p>You have not items in your cart. Go to our store to continue shopping!</p>
       </div>
     </div>
 
     <div class="list-group list-group-flush">
       <div v-for="item in $store.state.cart" :key="item.product.sku" class="list-group-item row">
-        <div class="col-3 product-image-container">
+        <div class="col-lg-3 text-lg-justify col-12 text-center product-image-container">
             <img :src="product.create(item.product).imageURL" class="product-image">
           </div>
-        <div class="col-6 product-description">
+        <div class="col-lg-6 text-lg-justify col-12 text-center product-description">
           <h5>{{ item.product.name }}</h5>
         </div>
-        <div class="col-3 product-actions">
+        <div class="col-lg-3 col-12 product-actions">
           <ul class="actions">
             <li>
               <input v-model="item.count" @change="updateProductCount(item, item.count)" type="number" size='1' class="form-control quantity" aria-label="Quantity" aria-describedby="basic-addon1">
@@ -92,7 +92,7 @@ export default {
   padding-top: 1em;
 }
 
-.product-actions > ul > li {
+.actions > li {
   padding: 0.2em;
 }
 
@@ -121,5 +121,11 @@ export default {
 
 .trash:hover {
   color: rgb(196, 0, 0);
+}
+
+@media (max-width: 991px) {
+  .actions > li {
+    padding: 0 1em;
+  }
 }
 </style>
