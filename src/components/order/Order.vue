@@ -18,7 +18,7 @@
     <div class="row mb-1 d-lg-none">
       <ul class="nav nav-tabs col-12">
         <li class="nav-item">
-          <router-link class="nav-link" :class="{ active: $route.query.tab === 'payment' }" :to="{ name: 'Order', query: { tab: 'payment' } }">Payment</router-link>
+          <router-link class="nav-link" :class="{ active: $route.query.tab === 'payment' || $route.query.tab == null }" :to="{ name: 'Order', query: { tab: 'payment' } }">Payment</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" :class="{ active: $route.query.tab === 'items' }" :to="{ name: 'Order', query: { tab: 'items' } }">Items</router-link>
@@ -49,7 +49,7 @@
           <button type="submit" class="btn btn-primary" @click="createOrder()">Place Order</button>
         </div>
       </div>
-      <div id="cart" class="col-12 col-lg-6 d-lg-block" :class="{ 'd-none': $route.query.tab === 'payment' }">
+      <div id="cart" class="col-12 col-lg-6 d-lg-block" :class="{ 'd-none': $route.query.tab === 'payment' || $route.query.tab == null }">
         <ul class="list-group">
           <li v-for="item in $store.state.cart" :key="item.product.sku" class="order-cart-item row list-group-item">
             <div class="col-3 product-image-container">
