@@ -15,8 +15,19 @@
       </div>
     </div>
 
+    <div class="row mb-1 d-lg-none">
+      <ul class="nav nav-tabs col-12">
+        <li class="nav-item">
+          <router-link class="nav-link" :class="{ active: $route.query.tab === 'payment' }" :to="{ name: 'Order', query: { tab: 'payment' } }">Payment</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" :class="{ active: $route.query.tab === 'items' }" :to="{ name: 'Order', query: { tab: 'items' } }">Items</router-link>
+        </li>
+      </ul>
+    </div>
+
     <div class="row">
-      <div id="order-info" class="col-6">
+      <div id="order-info" class="col-12 col-lg-6 d-lg-block" :class="{ 'd-none': $route.query.tab === 'items' }">
         <div id="payment">
           <payment ref="payment" @succeeded="paymentSucceeded" @failed="paymentFailed"></payment>
         </div>
@@ -38,7 +49,7 @@
           <button type="submit" class="btn btn-primary" @click="createOrder()">Place Order</button>
         </div>
       </div>
-      <div id="cart" class="col-6">
+      <div id="cart" class="col-12 col-lg-6 d-lg-block" :class="{ 'd-none': $route.query.tab === 'payment' }">
         <ul class="list-group">
           <li v-for="item in $store.state.cart" :key="item.product.sku" class="order-cart-item row list-group-item">
             <div class="col-3 product-image-container">
