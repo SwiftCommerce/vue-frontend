@@ -21,10 +21,10 @@
 
     <div class="list-group list-group-flush">
       <div v-for="item in $store.state.cart" :key="item.product.sku" class="list-group-item row">
-        <div class="col-lg-3 text-lg-justify col-12 text-center product-image-container">
+        <div class="col-lg-3 text-lg-left col-12 text-center product-image-container">
             <img :src="product.create(item.product).imageURL" class="product-image">
           </div>
-        <div class="col-lg-6 text-lg-justify col-12 text-center product-description">
+        <div class="col-lg-6 text-lg-left col-12 text-center product-description">
           <h5>{{ item.product.name }}</h5>
         </div>
         <div class="col-lg-3 col-12 product-actions">
