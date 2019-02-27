@@ -6,11 +6,14 @@
       <p>Are you sure you want to remove {{ deleteProduct.name }} from your cart?</p>
     </bootstrap-model>
 
-    <div v-if="$store.state.cart.length > 0" id="checkout" class="row">
-      <div class="col-12">
+    <div v-if="$store.state.cart.length > 0" class="row">
+      <div id="checkout" class="col-6">
         <router-link :to="{ name: 'Shipping' }">
           <button type="button" class="btn btn-primary">Checkout</button>
         </router-link>
+      </div>
+      <div class="col-6 text-right">
+        <h5>Total: {{ total() }}</h5>
       </div>
     </div>
     <div v-else class="row">
@@ -49,6 +52,8 @@ import Page from '@/components/page/Page';
 import CategoryNav from '@/components/nav/CategoryNav';
 import BootstrapModel from '@/components/utilities/BootstrapModel';
 
+import currency from '@/currency';
+
 export default {
   components: { Page, CategoryNav, BootstrapModel },
   data: function () {
@@ -67,6 +72,12 @@ export default {
     },
     deleteItem: function () {
       this.$store.commit('cart/remove', this.deleteProduct.sku);
+    },
+    total: function () {
+      let cents = this.$store.state.cart.map((item) => currency.getPrice(item.product.prices).cents * item.count).reduce((total, cent) => total + cent);
+      let code = currency.getPrice(this.$store.state.cart[0].product.prices).currency;
+
+      return currency.formatPrice({ cents: cents, currency: code });
     }
   }
 };
