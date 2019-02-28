@@ -10,7 +10,7 @@ const orders = axios.create({
   baseURL: isProduction ? '/api/orders' : 'http://localhost:8082/v1/orders'
 });
 const users = axios.create({
-  baseURL: 'http://localhost:8083/v1/users'
+  baseURL: isProduction ? '/api/users' : 'http://localhost:8083/v1/users'
 });
 
 orders.interceptors.response.use(null, function (error) {
