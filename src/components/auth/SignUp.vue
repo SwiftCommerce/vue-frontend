@@ -79,6 +79,7 @@ export default {
           this.error = error;
         }
 
+        this.submitText = 'Submit';
         this.submitting = false;
       });
     },
