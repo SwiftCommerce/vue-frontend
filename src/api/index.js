@@ -12,6 +12,9 @@ const orders = axios.create({
 const users = axios.create({
   baseURL: isProduction ? '/api/users' : 'http://localhost:8083/v1/users'
 });
+const addresses = axios.create({
+  baseURL: isProduction ? '/api/addresses' : 'http://localhost:8084/v1/addresses'
+});
 
 orders.interceptors.response.use(null, function (error) {
   var config = error.config;
@@ -29,7 +32,8 @@ orders.interceptors.response.use(null, function (error) {
 const api = {
   products: products,
   orders: orders,
-  users: users
+  users: users,
+  addresses: addresses
 };
 
 Vue.use(function (Vue, options) {
