@@ -1,6 +1,6 @@
 <template>
   <page>
-    <address-form next="Order" state-mutation="address/shipping"></address-form>
+    <address-form address-key="shippingAddress" next="Order" state-mutation="address/shipping"></address-form>
   </page>
 </template>
 

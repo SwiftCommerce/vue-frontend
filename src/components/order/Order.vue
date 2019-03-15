@@ -37,7 +37,7 @@
           <input v-model="useShippingAddress" type="checkbox" name="hide-address-form"/>
           <label for="hide-address-form">Use shipping address as billing address</label>
 
-          <address-form v-if="!useShippingAddress" state-mutation="address/billing"></address-form>
+          <address-form v-if="!useShippingAddress" address-key="billingAddress" state-mutation="address/billing"></address-form>
         </div>
         <div id="order-comment">
           <hr />
