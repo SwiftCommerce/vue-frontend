@@ -3,13 +3,24 @@
     <label :for="name"><slot></slot></label>
 
     <div v-if="this.required" class="input-group">
-      <input v-if="this.required" class="form-control" :type="type" :name="name" :id="name" required>
+      <input
+        v-if="this.required"
+        v-model="value"
+        class="form-control"
+        :type="type"
+        :name="name"
+        :placeholder="placeholder"
+        :pattern="pattern"
+        :autocomplete="autocomplete"
+        :id="name"
+        required
+      >
       <div class="invalid-feedback">
         <p>The given value is not valid</p>
       </div>
     </div>
     <div v-else class="input-group">
-      <input class="form-control" :type="type" :name="name" :id="name">
+      <input v-model="value" class="form-control" :type="type" :name="name" :placeholder="placeholder" :pattern="pattern" :autocomplete="autocomplete" :id="name">
     </div>
   </div>
 </template>
@@ -25,10 +36,24 @@ export default {
       type: String,
       default: 'text'
     },
+    placeholder: {
+      type: String
+    },
+    pattern: {
+      type: String
+    },
+    autocomplete: {
+      type: String
+    },
     required: {
       type: Boolean,
       default: false
     }
+  },
+  data: function () {
+    return {
+      value: null
+    };
   }
 };
 </script>
