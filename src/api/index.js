@@ -16,18 +16,22 @@ const addresses = axios.create({
   baseURL: isProduction ? '/api/addresses' : 'http://localhost:8084/v1/addresses'
 });
 
-orders.interceptors.response.use(null, function (error) {
-  var config = error.config;
-  var refresh = JSON.parse(localStorage.getItem('vuex')).auth.refresh;
-  if (config && refresh && error.response && error.response.data && error.response.data.reason === 'Expiration claim failed') {
-    return users.post('/accessToken', { refreshToken: refresh }).then((response) => {
+function tokenUpater (message, key) {
+  return async function (error) {
+    var config = error.config;
+    var refresh = JSON.parse(localStorage.getItem('vuex')).auth.refresh;
+    if (config && refresh && error.response && error.response.data && error.response.data[key] === message) {
+      const response = await users.post('/current/accessToken', { refreshToken: refresh });
       config.headers['Authorization'] = `Bearer ${response.data.accessToken}`;
       return axios.request(config);
-    });
-  }
+    }
 
-  return Promise.reject(error);
-});
+    return Promise.reject(error);
+  };
+}
+
+orders.interceptors.response.use(null, tokenUpater('Expiration claim failed', 'reason'));
+users.interceptors.response.use(null, tokenUpater('Expiration claim failed', 'error'));
 
 const api = {
   products: products,
@@ -36,7 +40,7 @@ const api = {
   addresses: addresses
 };
 
-Vue.use(function (Vue, options) {
+Vue.use(function (Vue, _) {
   Vue.prototype.$api = api;
 });
 
