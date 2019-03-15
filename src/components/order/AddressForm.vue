@@ -126,7 +126,6 @@ export default {
         }
       }).then((response) => {
         if (this.shouldSave && this.$store.state.auth.isAuthenticated) {
-
           this.$api.users.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.auth.token}`;
           return this.$api.users.post('/current/attributes', {
             attributeText: `${response.data.id}`,
