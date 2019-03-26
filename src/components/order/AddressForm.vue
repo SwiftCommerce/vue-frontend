@@ -11,24 +11,17 @@
       <hr />
 
       <div class="form-row">
-        <form-element type="number" class="col-md-4 col-xl-2" ref="streetNumber" name="street-number">Street Number:</form-element>
-        <form-element class="col-md-4 col-xl-2" ref="streetNumberSuffix" autocomplete="off" name="street-number-suffix">Street Number Suffix:</form-element>
-        <form-element class="col-md-4 col-xl-2" ref="direction" placeholder="N, E, S, W, etc." pattern="([NESW]|NE|NW|SE|SW|)" name="direction">Street Direction:</form-element>
-        <form-element class="col-md-4 col-xl-2" ref="streetName" name="street-name">Street Name:</form-element>
-        <form-element class="col-md-4 col-xl-2" ref="streetType" placeholder="Dr., St., Pkwy., etc." name="street-type">Street Type:</form-element>
-        <form-element class="col-md-4 col-xl-2" ref="buildingName" name="building-name">Building Name:</form-element>
+        <form-element class="col-12" ref="address1" placeholder="314 West 42nd Street" name="type">Address:</form-element>
+        <form-element class="col-12" ref="address2" placeholder="Apt #1970" name="type-identifier">Address 2:</form-element>
       </div>
       <div class="form-row">
-        <form-element class="col-12 col-md-6" ref="type" placeholder="P.O. Box, Apartment, Floor, etc." name="type">Address Type:</form-element>
-        <form-element class="col-12 col-md-6" ref="typeIdentifier" placeholder="P.O Box number, Apartment Number, etc." name="type-identifier">Type Identifier:</form-element>
+        <form-element class="col-12 col-md-6" ref="city" autocomplete="address-level2" name="city">City:</form-element>
+        <form-element class="col-12 col-md-6" ref="district" autocomplete="address-level1" placeholder="State, Province, Government District, etc." name="district">Government Distirct:</form-element>
       </div>
       <div class="form-row">
-        <form-element class="col-lg-4" ref="municipality" autocomplete="address-level3" placeholder="Villiage, Hamlet, etc." name="municipality">Local Municipality:</form-element>
-        <form-element class="col-lg-4" ref="city" autocomplete="address-level2" name="city">City:</form-element>
-        <form-element class="col-lg-4" ref="district" autocomplete="address-level1" placeholder="State, Province, Government District, etc." name="district">Government Distirct:</form-element>
+        <form-element class="col-12 col-md-6" ref="postalArea" autocomplete="postal-code" placeholder="Zip Code, Postal Code, etc." name="postal-area">Postal Area:</form-element>
+        <form-element class="col-12 col-md-6" ref="country" autocomplete="country-name" name="country">Country:</form-element>
       </div>
-      <form-element ref="postalArea" autocomplete="postal-code" placeholder="Zip Code, Postal Code, etc." name="postal-area">Postal Area:</form-element>
-      <form-element ref="country" autocomplete="country-name" name="country">Country:</form-element>
 
       <div v-if="$store.state.auth.isAuthenticated" class="form-group form-check" id="save">
           <input v-model="shouldSave" class="form-check-input" type="checkbox" name="save">
@@ -81,8 +74,8 @@ export default {
 
         this.loading = false;
       }).catch((error) => {
-        if (error.response && error.response.data && error.response.data.error) {
-          this.error = new Error(error.response.data.error);
+        if (error.response && error.response.data && error.response.data.message) {
+          this.error = new Error(error.response.data.message);
         } else {
           this.error = error;
         }
@@ -95,32 +88,20 @@ export default {
       form.classList.add('was-validated');
       return form.checkValidity();
     },
-    post: function (endpoint) {
-      var street = {
-        number: parseInt(this.$refs.streetNumber.value),
-        numberSuffix: this.$refs.streetNumberSuffix.value,
-        name: this.$refs.streetName.value,
-        type: this.$refs.streetType.value,
-        direction: this.$refs.direction.value
-      };
-      var address = {
-        buildingName: this.$refs.buildingName.value,
-        type: this.$refs.type.value,
-        typeIdentifier: this.$refs.typeIdentifier.value,
-        municipality: this.$refs.municipality.value,
-        city: this.$refs.city.value,
-        district: this.$refs.district.value,
-        postalArea: this.$refs.postalArea.value,
+    parse: function () {
+      var data = {
         country: this.$refs.country.value,
-        street: street
+        data: `${this.$refs.address1.value}${' ' + this.$refs.address2.value}, ${this.$refs.city.value} ${this.$refs.district.value}, ${this.$refs.postalArea.value} ${this.$refs.country.value}`
       };
 
-      return this.$api.addresses.post(endpoint, address);
+      return this.$api.addresses.post('/parse', data).then((response) => response.data);
     },
     save: function () {
-      return this.post('/validate').then((response) => {
+      return this.parse().then((address) => {
+        return this.$api.addresses.post('/validate', address).then((_) => address);
+      }).then((address) => {
         if (this.shouldSave) {
-          return this.post('/');
+          return this.$api.addresses.post('/', address);
         } else {
           return Promise.resolve(null);
         }
