@@ -2,40 +2,40 @@
   <form id="address-form" class="needs-validation mt-3" novalidate>
     <button v-if="saved" @click="loadSaved" type="button" class="btn btn-secondary mb-2">Use saved address</button>
 
-      <form-element name="email" type="email" autocomplete="email" placeholder="my.email@example.com" required>Email Address:</form-element>
-      <div class="form-row">
-        <form-element class="col-12 col-md-6" autocomplete="given-name" name="firstname" required>First Name:</form-element>
-        <form-element class="col-12 col-md-6" autocomplete="family-name" name="lastname" required>Last Name:</form-element>
-      </div>
-      <form-element name="company">Company:</form-element>
-      <form-element type="tel" autocomplete="tel" name="phone-number">Phone Number:</form-element>
+    <form-element name="email" type="email" autocomplete="email" placeholder="my.email@example.com" required>Email Address:</form-element>
+    <div class="form-row">
+      <form-element class="col-12 col-md-6" autocomplete="given-name" name="firstname" required>First Name:</form-element>
+      <form-element class="col-12 col-md-6" autocomplete="family-name" name="lastname" required>Last Name:</form-element>
+    </div>
+    <form-element name="company">Company:</form-element>
+    <form-element type="tel" autocomplete="tel" name="phone-number">Phone Number:</form-element>
 
-      <hr />
+    <hr />
 
-      <div class="form-row">
-        <form-element class="col-12" ref="address1" placeholder="314 West 42nd Street" name="type">Address:</form-element>
-        <form-element class="col-12" ref="address2" placeholder="Apt #1970" name="type-identifier">Address 2:</form-element>
-      </div>
-      <div class="form-row">
-        <form-element class="col-12 col-md-6" ref="city" autocomplete="address-level2" name="city">City:</form-element>
-        <form-element class="col-12 col-md-6" ref="district" autocomplete="address-level1" placeholder="State, Province, Government District, etc." name="district">Government Distirct:</form-element>
-      </div>
-      <div class="form-row">
-        <form-element class="col-12 col-md-6" ref="postalArea" autocomplete="postal-code" placeholder="Zip Code, Postal Code, etc." name="postal-area">Postal Area:</form-element>
-        <form-element class="col-12 col-md-6" ref="country" autocomplete="country-name" name="country">Country:</form-element>
-      </div>
+    <div class="form-row">
+      <form-element class="col-12" ref="address1" placeholder="314 West 42nd Street" name="type">Address:</form-element>
+      <form-element class="col-12" ref="address2" placeholder="Apt #1970" name="type-identifier">Address 2:</form-element>
+    </div>
+    <div class="form-row">
+      <form-element class="col-12 col-md-6" ref="city" autocomplete="address-level2" name="city">City:</form-element>
+      <form-element class="col-12 col-md-6" ref="district" autocomplete="address-level1" placeholder="State, Province, Government District, etc." name="district">Government Distirct:</form-element>
+    </div>
+    <div class="form-row">
+      <form-element class="col-12 col-md-6" ref="postalArea" autocomplete="postal-code" placeholder="Zip Code, Postal Code, etc." name="postal-area">Postal Area:</form-element>
+      <form-element class="col-12 col-md-6" ref="country" autocomplete="country-name" name="country">Country:</form-element>
+    </div>
 
-      <div v-if="$store.state.auth.isAuthenticated" class="form-group form-check" id="save">
-          <input v-model="shouldSave" class="form-check-input" type="checkbox" name="save">
-          <label for="shouldSave" class="form-check-label">Save Address</label>
-      </div>
+    <div v-if="$store.state.auth.isAuthenticated" class="form-group form-check" id="save">
+        <input v-model="shouldSave" class="form-check-input" type="checkbox" name="save">
+        <label for="shouldSave" class="form-check-label">Save Address</label>
+    </div>
 
-      <error-alert :watch="error" />
-      <button v-if="next" type="submit" class="btn btn-primary" @click.prevent="submit()" onsubmit="return false">
-        <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Next
-      </button>
-    </form>
+    <error-alert :watch="error" />
+    <button v-if="next" type="submit" class="btn btn-primary" @click.prevent="submit()" onsubmit="return false">
+      <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Next
+    </button>
+  </form>
 </template>
 
 <script>
