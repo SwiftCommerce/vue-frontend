@@ -1,5 +1,7 @@
 <template>
-  <form id="address-form" class="needs-validation" novalidate>
+  <form id="address-form" class="needs-validation mt-3" novalidate>
+    <button v-if="saved" @click="loadSaved" type="button" class="btn btn-secondary mb-2">Use saved address</button>
+
       <form-element name="email" type="email" autocomplete="email" placeholder="my.email@example.com" required>Email Address:</form-element>
       <div class="form-row">
         <form-element class="col-12 col-md-6" autocomplete="given-name" name="firstname" required>First Name:</form-element>
@@ -47,14 +49,43 @@ export default {
     addressKey: { type: String },
     stateMutation: { type: String }
   },
+  mounted: function () {
+    this.$api.users.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.auth.token}`;
+    this.$api.users.get('/current/attributes').then((response) => {
+      let attribute = response.data.filter((element) => element.key == this.addressKey || element.key == 'addressID').pop();
+      return this.$api.addresses.get(`/${attribute.text}`);
+    }).then((response) => {
+      this.saved = response.data;
+    });
+  },
   data: function () {
     return {
       loading: false,
       error: null,
-      shouldSave: false
+      shouldSave: false,
+      saved: null
     };
   },
   methods: {
+    loadSaved: function () {
+      this.$refs.city.value = this.saved.city;
+      this.$refs.country.value = this.saved.country;
+      this.$refs.district.value = this.saved.district;
+      this.$refs.postalArea.value = this.saved.postalArea;
+
+      if (this.saved.type) {
+        this.$refs.address2.value = `${this.saved.type} ${this.saved.typeIdentifier}`;
+      }
+
+      var address1 = [
+        this.saved.street.number,
+        this.saved.street.numberSuffix,
+        this.saved.street.direction,
+        this.saved.street.name,
+        this.saved.street.type
+      ];
+      this.$refs.address1.value = address1.filter((component) => component != null).join(' ');
+    },
     submit: function (event) {
       this.$router.replace('/shipping');
       if (!this.validateFields()) { return; }
