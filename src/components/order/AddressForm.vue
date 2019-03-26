@@ -52,7 +52,7 @@ export default {
   mounted: function () {
     this.$api.users.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.auth.token}`;
     this.$api.users.get('/current/attributes').then((response) => {
-      let attribute = response.data.filter((element) => element.key == this.addressKey || element.key == 'addressID').pop();
+      let attribute = response.data.filter((element) => element.key === this.addressKey || element.key === 'addressID').pop();
       return this.$api.addresses.get(`/${attribute.text}`);
     }).then((response) => {
       this.saved = response.data;
